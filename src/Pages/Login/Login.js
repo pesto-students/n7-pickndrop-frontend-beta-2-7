@@ -1,17 +1,9 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { userActions } from "../../actions/userActions";
 
-import { userActions } from "../actions/userActions";
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		"& > *": {
-			margin: '8px 0',
-			width: "43ch",
-		},
-	},
-}));
+import { useStyles } from "./loginStyle";
 
 function Login() {
 	const classes = useStyles();

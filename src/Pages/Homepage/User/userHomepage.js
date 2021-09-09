@@ -1,10 +1,10 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Banner from "../components/Banner";
-import Featured from "../components/Featured";
+import Header from "../../../components/Header/Header";
+import Footer from "../../../components/Footer/Footer";
+import Banner from "../components/Banner/Banner";
+import Featured from "../components/Featured/Featured";
 import { Grid } from "@material-ui/core";
 
 const mainFeaturedPost = {

@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { FormControl, MenuItem, Modal, Select } from "@material-ui/core";
-import { Login } from "./Login";
+import { Login } from "../../Pages/Login/Login";
 import { Link } from "react-router-dom";
+import { useStyles } from "./headerStyle";
+
 
 function getModalStyle() {
 	const top = 50;
@@ -18,50 +19,6 @@ function getModalStyle() {
 		transform: `translate(-${top}%, -${left}%)`,
 	};
 }
-
-const useStyles = makeStyles((theme) => ({
-	toolbar: {
-		borderBottom: `1px solid ${theme.palette.divider}`,
-		marginBottom: "40px",
-		marginTop: "8px",
-	},
-	heading: {
-		marginBottom: "0",
-	},
-	subHeading: {
-		marginTop: "0",
-	},
-	formControl: {
-		margin: theme.spacing(1),
-		minWidth: 120,
-	},
-	toolbarTitle: {
-		flex: 1,
-	},
-	toolbarSecondary: {
-		justifyContent: "space-between",
-		overflowX: "auto",
-	},
-	toolbarLink: {
-		padding: theme.spacing(1),
-		flexShrink: 0,
-	},
-	button: {
-		margin: "0 0 0 10px",
-	},
-	link: {
-		color: "white",
-		textDecoration: "none",
-	},
-	paper: {
-		position: "absolute",
-		width: 400,
-		backgroundColor: theme.palette.background.paper,
-		border: "2px solid #000",
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3),
-	},
-}));
 
 export default function Header(props) {
 	const classes = useStyles();
