@@ -1,4 +1,3 @@
-
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
@@ -10,13 +9,20 @@ export const useStyles = makeStyles((theme) => ({
 	heading: {
 		marginBottom: "0",
 	},
+    profile: {
+        marginLeft: '10px',
+    },
 	subHeading: {
 		marginTop: "0",
 	},
 	formControl: {
 		margin: theme.spacing(1),
 		minWidth: 120,
+        top: "-8px",
 	},
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
 	toolbarTitle: {
 		flex: 1,
 	},
@@ -30,6 +36,8 @@ export const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		margin: "0 0 0 10px",
+        backgroundColor: '#d65a50',
+        color: '#fff',
 	},
 	link: {
 		color: "white",
@@ -42,5 +50,8 @@ export const useStyles = makeStyles((theme) => ({
 		border: "2px solid #000",
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(2, 4, 3),
+	},
+	selectEmpty: {
+		marginTop: theme.spacing(2),
 	},
 }));

@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { FormControl, MenuItem, Modal, Select } from "@material-ui/core";
+import { Fab, FormControl, MenuItem, Modal, Select } from "@material-ui/core";
 import { Login } from "../../Pages/Login/Login";
 import { Link } from "react-router-dom";
 import { useStyles } from "./headerStyle";
-
+import { useSelector } from "react-redux";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 function getModalStyle() {
 	const top = 50;
@@ -20,16 +21,20 @@ function getModalStyle() {
 	};
 }
 
-export default function Header(props) {
+export default function Header() {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(false);
+
 	const [location, setLocation] = React.useState("");
 	const [modalStyle] = React.useState(getModalStyle);
-	const { title } = props;
+
+	const loggingIn = useSelector(state => state.userOtpAuthentication.loggedIn);
+	const deliveryPartnerLoggedIn = useSelector(state => state.driverOtpAuthentication.driverLoggedIn);
 
 	const handleChange = (event) => {
 		setLocation(event.target.value);
 	};
+
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -53,11 +58,12 @@ export default function Header(props) {
 
 	return (
 		<React.Fragment>
+			{console.log(loggingIn+'driver'+deliveryPartnerLoggedIn)}
 			<Toolbar className={classes.toolbar}>
 				<Typography component="h2" variant="h5" color="inherit" align="left" noWrap className={classes.toolbarTitle}>
-					{title}
+					PickNDrop
 				</Typography>
-				<FormControl className={classes.formControl}>
+				{!deliveryPartnerLoggedIn && <FormControl className={classes.formControl}>
 					<Select
 						value={location}
 						onChange={handleChange}
@@ -72,15 +78,22 @@ export default function Header(props) {
 						<MenuItem value={20}>Pune</MenuItem>
 						<MenuItem value={30}>New Delhi</MenuItem>
 					</Select>
-				</FormControl>
-				<Button className={classes.button} variant="contained" size="small" color="primary">
+				</FormControl>}
+				{!deliveryPartnerLoggedIn && <Button className={classes.button} variant="contained" size="small" color="primary">
 					<Link to="/deliveryPartnerHomepage" className={classes.link}>
 						For Delivery Partner
 					</Link>
-				</Button>
-				<Button className={classes.button} variant="outlined" size="small" onClick={handleOpen}>
-					Sign in
-				</Button>
+				</Button>}
+				{loggingIn || deliveryPartnerLoggedIn ? (
+					<Fab color="primary" variant="extended" className={classes.profile}>
+					<AccountCircleIcon className={classes.extendedIcon} />
+					Profile
+				  </Fab>
+				) : (
+					<Button className={classes.button} variant="contained" size="small" color="primary" onClick={handleOpen}>
+						Sign in
+					</Button>
+				)}
 			</Toolbar>
 			<Modal open={open} onClose={handleClose} aria-labelledby="login-title" aria-describedby="login-description">
 				{login}

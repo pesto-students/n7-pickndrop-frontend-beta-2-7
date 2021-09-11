@@ -32,7 +32,6 @@ function Login() {
 
 		setSubmitted(true);
 		if (email && phone) {
-			// get return url from location state or default to home page
 			dispatch(userActions.login(email, phone));
 			setSubmitWithDetails(true);
 		}
@@ -46,7 +45,7 @@ function Login() {
 		e.preventDefault();
 
 		if (otp) {
-			dispatch(userActions.otpVerification(otp));
+			dispatch(userActions.userOtpVerification(otp));
 		}
 	}
 
@@ -58,10 +57,11 @@ function Login() {
 					onChange={handleOTPChange}
 					name="phone"
 					value={otp}
+					type="number"
 					id="otp"
 					label="OTP"
 					variant="outlined"
-					helperText={submitted && !otp ? "Phone number is required" : ""}
+					helperText={submitted && !otp ? "OTP is required" : ""}
 				/>
 				<Button type="submit" variant="contained" color="primary" className={classes.button}>
 					Verify OTP
@@ -85,6 +85,7 @@ function Login() {
 					error={submitted && !phone ? true : false}
 					onChange={handleChange}
 					name="phone"
+					type="number"
 					value={phone}
 					id="phone"
 					label="Phone"

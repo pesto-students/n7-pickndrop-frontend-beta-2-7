@@ -39,7 +39,7 @@ function UserHomepage() {
 		<React.Fragment>
 			<CssBaseline />
 			<Container maxWidth="lg">
-				<Header title="PickNDrop"/>
+				<Header />
 				<main>
 					<Banner post={mainFeaturedPost} />
 					<Grid container spacing={4}>
@@ -49,7 +49,7 @@ function UserHomepage() {
 					</Grid>
 				</main>
 			</Container>
-			<Footer title="Footer" description="Something here to give the footer a purpose!" />
+			<Footer description="Something here to give the footer a purpose!" />
 		</React.Fragment>
 	);
 }

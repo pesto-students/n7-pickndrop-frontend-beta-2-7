@@ -10,8 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../../actions";
 import { useStyles } from "./style";
-
-
+import { Link } from "react-router-dom";
 
 function DeliveryPartnerHomepage() {
 	const classes = useStyles();
@@ -19,9 +18,12 @@ function DeliveryPartnerHomepage() {
 		email: "",
 		phone: "",
 	});
+	const [driverOtp, setOTP] = useState("");
 	const [submitted, setSubmitted] = useState(false);
+	const [submitWithDetails, setSubmitWithDetails] = useState(false);
 	const { email, phone } = inputs;
 	const dispatch = useDispatch();
+
 
 	function handleChange(e) {
 		const { name, value } = e.target;
@@ -33,8 +35,20 @@ function DeliveryPartnerHomepage() {
 
 		setSubmitted(true);
 		if (email && phone) {
-			// get return url from location state or default to home page
 			dispatch(userActions.deliveryPartnerLogin(email, phone));
+			setSubmitWithDetails(true);
+		}
+	}
+
+	function handleOTPChange(e) {
+		setOTP(e.target.value);
+	}
+
+	function handleVerifyOTP(e) {
+		e.preventDefault();
+
+		if (driverOtp) {
+			dispatch(userActions.driverOtpVerification(driverOtp));
 		}
 	}
 
@@ -48,40 +62,62 @@ function DeliveryPartnerHomepage() {
 					<Typography component="h1" variant="h5">
 						Sign in / Sign up
 					</Typography>
-					<form className={classes.form} noValidate autoComplete="off" name="form" onSubmit={handleSubmit}>
-						<TextField
-							error={submitted && !email ? true : false}
-							onChange={handleChange}
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
-							id="email"
-							label="Email Address"
-							name="email"
-							autoComplete="email"
-							helperText={submitted && !email ? "Email is required" : ""}
-							autoFocus
-						/>
-						<TextField
-							error={submitted && !phone ? true : false}
-							onChange={handleChange}
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
-							name="phone"
-							label="Phone"
-							type="phone"
-							helperText={submitted && !phone ? "Phone number is required" : ""}
-							id="phone"
-							autoComplete="current-phone"
-						/>
-						<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-							Send OTP
-						</Button>
-						<Box mt={5}></Box>
-					</form>
+					{submitWithDetails ? (
+						<form className={classes.root} noValidate autoComplete="off" name="otpform" onSubmit={handleVerifyOTP}>
+							<TextField
+								className={classes.otpButton}
+								error={submitted && !driverOtp ? true : false}
+								onChange={handleOTPChange}
+								name="phone"
+								value={driverOtp}
+								id="otp"
+								type="number"
+								label="OTP"
+								variant="outlined"
+								helperText={submitted && !driverOtp ? "OTP is required" : ""}
+							/>
+							<Button type="submit" variant="contained" color="primary" className={classes.button}>
+								<Link to="/register" className={classes.link}>
+									Verify OTP
+								</Link>
+							</Button>
+						</form>
+					) : (
+						<form className={classes.form} noValidate autoComplete="off" name="form" onSubmit={handleSubmit}>
+							<TextField
+								error={submitted && !email ? true : false}
+								onChange={handleChange}
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								id="email"
+								label="Email Address"
+								name="email"
+								autoComplete="email"
+								helperText={submitted && !email ? "Email is required" : ""}
+								autoFocus
+							/>
+							<TextField
+								error={submitted && !phone ? true : false}
+								onChange={handleChange}
+								variant="outlined"
+								margin="normal"
+								required
+								fullWidth
+								name="phone"
+								type="number"
+								label="Phone"
+								helperText={submitted && !phone ? "Phone number is required" : ""}
+								id="phone"
+								autoComplete="current-phone"
+							/>
+							<Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+								Send OTP
+							</Button>
+							<Box mt={5}></Box>
+						</form>
+					)}
 				</div>
 			</Grid>
 		</Grid>

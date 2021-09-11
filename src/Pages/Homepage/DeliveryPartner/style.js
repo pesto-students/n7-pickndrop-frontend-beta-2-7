@@ -2,9 +2,22 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => ({
-	root: {
-		height: "100vh",
+    root: {
+        height: "100vh",
+		"& > *": {
+			width: "43ch",
+		},
 	},
+    button: {
+        margin: '20px 0',
+    },
+    otpButton: {
+        marginTop: '20px',
+    },
+    link: {
+        color: '#fff',
+        textDecoration: 'none',
+    },
 	image: {
 		backgroundImage: "url(https://source.unsplash.com/random)",
 		backgroundRepeat: "no-repeat",
@@ -23,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.secondary.main,
 	},
 	form: {
-		width: "100%", // Fix IE 11 issue.
+		width: "100%",
 		marginTop: theme.spacing(1),
 	},
 	submit: {
