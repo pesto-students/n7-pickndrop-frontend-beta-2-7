@@ -1,3 +1,5 @@
+import { BASE_URL } from "./apiurl";
+
 export const userService = {
 	login,
 	logout,
@@ -14,10 +16,7 @@ async function login(email, phone) {
 		body: JSON.stringify({ email, phone }),
 	};
 
-	return fetch(`/users/authenticate`, requestOptions).then((user) => {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem("user", JSON.stringify(user));
-
+	return fetch(`${BASE_URL}/users/authenticate`, requestOptions).then((user) => {
 		return user;
 	});
 }
@@ -29,41 +28,32 @@ async function driverLogin(email, phone) {
 		body: JSON.stringify({ email, phone }),
 	};
 
-	return fetch(`/driver/authenticate`, requestOptions).then((driver) => {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem("driver", JSON.stringify(driver));
-
+	return fetch(`${BASE_URL}/driver/authenticate`, requestOptions).then((driver) => {
 		return driver;
 	});
 }
 
-async function userOtpVerification(otp) {
+async function userOtpVerification(otp, email, phone) {
 	const requestOptions = {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(otp),
+		body: JSON.stringify({ otp, email, phone }),
 	};
 
-	return fetch(`/user/otp/authenticate`, requestOptions).then((otp) => {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem("otp", JSON.stringify(otp));
-
-		return otp;
+	return fetch(`${BASE_URL}/user/otp/authenticate`, requestOptions).then((user) => {
+		return user;
 	});
 }
 
-async function driverOtpVerification(otp) {
+async function driverOtpVerification(otp, email, phone) {
 	const requestOptions = {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(otp),
+		body: JSON.stringify({ otp, email, phone }),
 	};
 
-	return fetch(`/driver/otp/authenticate`, requestOptions).then((otp) => {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem("otp", JSON.stringify(otp));
-
-		return otp;
+	return fetch(`${BASE_URL}/driver/otp/authenticate`, requestOptions).then((driver) => {
+		return driver;
 	});
 }
 
@@ -102,10 +92,7 @@ async function register(
 		}),
 	};
 
-	return fetch(`/driver/register`, requestOptions).then((driverDetails) => {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem("driverDetails", JSON.stringify(driverDetails));
-
+	return fetch(`${BASE_URL}/driver/register`, requestOptions).then((driverDetails) => {
 		return driverDetails;
 	});
 }

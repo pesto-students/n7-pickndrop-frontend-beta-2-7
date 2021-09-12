@@ -83,6 +83,7 @@ function Register() {
 	return (
 		<div>
 			<Header />
+			<h2>Become a delivery Partner by simple registration</h2>
 			<form noValidate autoComplete="off" name="registerForm" onSubmit={handleSubmit}>
 				<Accordion defaultExpanded>
 					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
