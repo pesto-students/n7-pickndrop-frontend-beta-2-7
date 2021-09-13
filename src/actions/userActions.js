@@ -1,6 +1,6 @@
 import { userConstants } from "../constants/userConstants";
 import { userService } from "../services/userService";
-import { history } from "../helpers/history";
+
 
 export const userActions = {
 	login,
@@ -16,7 +16,6 @@ function login(email, phone, from) {
 		userService.login(email, phone).then(
 			(user) => {
 				dispatch(success(user));
-				history.push(from);
 			},
 			(error) => {
 				dispatch(failure(error.toString()));
@@ -52,11 +51,15 @@ function deliveryPartnerLogin(email, phone) {
 	}
 }
 
-function userOtpVerification(otp) {
+function userOtpVerification(otp, email, phone) {
 	return (dispatch) => {
-		userService.userOtpVerification(otp).then(
-			(otp) => {
-				dispatch(success(otp));
+		userService.userOtpVerification(otp, email, phone).then(
+			(user) => {
+				if(user.status === 500){
+					 dispatch(failure('Authentication failed'))
+				} else {
+					dispatch(success(user));
+				}
 			},
 			(error) => {
 				dispatch(failure(error.toString()));
@@ -64,20 +67,23 @@ function userOtpVerification(otp) {
 		);
 	};
 
-	function success(otp) {
-		return { type: userConstants.OTP_VERIFICATION_SUCCESS, otp };
+	function success(user) {
+		return { type: userConstants.OTP_VERIFICATION_SUCCESS, user };
 	}
 	function failure(error) {
 		return { type: userConstants.OTP_VERIFICATION_FAILURE, error };
 	}
 }
 
-function driverOtpVerification(driverOtp) {
+function driverOtpVerification(driverOtp, email, phone) {
 	return (dispatch) => {
-		userService.driverOtpVerification(driverOtp).then(
-			(driverOtp) => {
-				dispatch(success(driverOtp));
-				history.push('/register');
+		userService.driverOtpVerification(driverOtp, email, phone).then(
+			(driver) => {
+				if(driver.status === 500){
+					dispatch(failure('Authentication failed'))
+			   } else {
+				   dispatch(success(driver));
+			   }
 			},
 			(error) => {
 				dispatch(failure(error.toString()));
@@ -85,8 +91,8 @@ function driverOtpVerification(driverOtp) {
 		);
 	};
 
-	function success(driverOtp) {
-		return { type: userConstants.DRIVER_OTP_VERIFICATION_SUCCESS, driverOtp };
+	function success(driver) {
+		return { type: userConstants.DRIVER_OTP_VERIFICATION_SUCCESS, driver };
 	}
 	function failure(error) {
 		return { type: userConstants.DRIVER_OTP_VERIFICATION_FAILURE, error };

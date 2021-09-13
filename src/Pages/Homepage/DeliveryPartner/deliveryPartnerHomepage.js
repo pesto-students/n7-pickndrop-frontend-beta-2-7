@@ -7,10 +7,10 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../actions";
 import { useStyles } from "./style";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function DeliveryPartnerHomepage() {
 	const classes = useStyles();
@@ -22,8 +22,10 @@ function DeliveryPartnerHomepage() {
 	const [submitted, setSubmitted] = useState(false);
 	const [submitWithDetails, setSubmitWithDetails] = useState(false);
 	const { email, phone } = inputs;
+	const loggedIn = useSelector((state) => state.driverOtpAuthentication.driverLoggedIn);
+	const error = useSelector((state) => state.driverOtpAuthentication.error);
 	const dispatch = useDispatch();
-
+	const history = useHistory();
 
 	function handleChange(e) {
 		const { name, value } = e.target;
@@ -47,8 +49,9 @@ function DeliveryPartnerHomepage() {
 	function handleVerifyOTP(e) {
 		e.preventDefault();
 
-		if (driverOtp) {
-			dispatch(userActions.driverOtpVerification(driverOtp));
+		if (driverOtp && email && phone) {
+			dispatch(userActions.driverOtpVerification(driverOtp, email, phone));
+			loggedIn && history.push("/register");
 		}
 	}
 
@@ -66,7 +69,7 @@ function DeliveryPartnerHomepage() {
 						<form className={classes.root} noValidate autoComplete="off" name="otpform" onSubmit={handleVerifyOTP}>
 							<TextField
 								className={classes.otpButton}
-								error={submitted && !driverOtp ? true : false}
+								error={error ? true : false}
 								onChange={handleOTPChange}
 								name="phone"
 								value={driverOtp}
@@ -74,12 +77,10 @@ function DeliveryPartnerHomepage() {
 								type="number"
 								label="OTP"
 								variant="outlined"
-								helperText={submitted && !driverOtp ? "OTP is required" : ""}
+								helperText={error ? "Authentication failed with wrong OTP" : ""}
 							/>
 							<Button type="submit" variant="contained" color="primary" className={classes.button}>
-								<Link to="/register" className={classes.link}>
-									Verify OTP
-								</Link>
+								Verify OTP
 							</Button>
 						</form>
 					) : (

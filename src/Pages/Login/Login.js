@@ -1,6 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { userActions } from "../../actions/userActions";
 
 import { useStyles } from "./loginStyle";
@@ -15,7 +16,9 @@ function Login() {
 	const [submitted, setSubmitted] = useState(false);
 	const [submitWithDetails, setSubmitWithDetails] = useState(false);
 	const { email, phone } = inputs;
+	const error = useSelector(state => state.userOtpAuthentication.error);
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	// reset login status
 	useEffect(() => {
@@ -44,8 +47,9 @@ function Login() {
 	function handleVerifyOTP(e) {
 		e.preventDefault();
 
-		if (otp) {
-			dispatch(userActions.userOtpVerification(otp));
+		if (otp && email && phone) {
+			dispatch(userActions.userOtpVerification(otp, email, phone));
+			history.push('/')
 		}
 	}
 
@@ -53,7 +57,7 @@ function Login() {
 		<div>
 			<form className={classes.root} noValidate autoComplete="off" name="otpform" onSubmit={handleVerifyOTP}>
 				<TextField
-					error={submitted && !otp ? true : false}
+					error={error ? true : false}
 					onChange={handleOTPChange}
 					name="phone"
 					value={otp}
@@ -61,7 +65,7 @@ function Login() {
 					id="otp"
 					label="OTP"
 					variant="outlined"
-					helperText={submitted && !otp ? "OTP is required" : ""}
+					helperText={error ? "Authentication failed with wrong OTP" : ""}
 				/>
 				<Button type="submit" variant="contained" color="primary" className={classes.button}>
 					Verify OTP
@@ -76,6 +80,7 @@ function Login() {
 					onChange={handleChange}
 					name="email"
 					value={email}
+					type="email"
 					id="email"
 					label="Email"
 					variant="outlined"

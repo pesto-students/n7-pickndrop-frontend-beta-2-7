@@ -8,11 +8,9 @@ const driverInitialState = {
 	driver: {},
 };
 
-let otp = JSON.parse(localStorage.getItem("otp"));
-const otpInitialState = otp ? { loggedIn: false, otp } : {};
+const otpInitialState = { loggedIn: false, otp: "", user: {}, error: "" };
 
-let driverOtp = JSON.parse(localStorage.getItem("driverOtp"));
-const driverOtpInitialState = driverOtp ? { driverLoggedIn: false, driverOtp } : {};
+const driverOtpInitialState = { driverLoggedIn: false, otp: "", driver: {}, error: "" };
 
 const registerInitialState = {
 	firstName: "",
@@ -66,9 +64,13 @@ export function userOtpAuthentication(state = otpInitialState, action) {
 			return {
 				loggedIn: true,
 				otp: action.otp,
+				user: action.user,
 			};
 		case userConstants.OTP_VERIFICATION_FAILURE:
-			return {};
+			return {
+				...state,
+				error: action.error,
+			};
 		case userConstants.LOGOUT:
 			return {};
 		default:
@@ -80,12 +82,15 @@ export function driverOtpAuthentication(state = driverOtpInitialState, action) {
 	switch (action.type) {
 		case userConstants.DRIVER_OTP_VERIFICATION_SUCCESS:
 			return {
-                ...state,
 				driverLoggedIn: true,
-				driverOtp: action.driverOtp,
+				otp: action.otp,
+				driver: action.driver,
 			};
 		case userConstants.DRIVER_OTP_VERIFICATION_FAILURE:
-			return {};
+			return {
+				...state,
+				error: action.error,
+			};
 		case userConstants.LOGOUT:
 			return {};
 		default:
