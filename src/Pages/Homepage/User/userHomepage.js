@@ -7,6 +7,9 @@ import Banner from "../components/Banner/Banner";
 import Featured from "../components/Featured/Featured";
 import { Grid } from "@material-ui/core";
 
+//import {Map} from "../../../components/Map/Map"
+import {AutoComplete} from "../../../components/Autocomplete/AutoComplete"
+
 const mainFeaturedPost = {
 	title: "Title of a longer featured blog post",
 	description: "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
