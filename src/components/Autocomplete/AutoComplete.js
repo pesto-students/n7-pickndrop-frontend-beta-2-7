@@ -14,10 +14,10 @@ import {
       "Pineapple",
       "Kiwi"
   ];
-const AutoComplete=()=>{
+const AutoComplete=({inputProps})=>{
     return (
 <Combobox aria-label="choose a fruit">
-  <ComboboxInput />
+  <ComboboxInput {...inputProps} />
   <ComboboxPopover>
     <ComboboxList>
         {
