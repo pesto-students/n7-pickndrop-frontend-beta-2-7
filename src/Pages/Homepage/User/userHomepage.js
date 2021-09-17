@@ -48,7 +48,7 @@ function UserHomepage() {
 			<Container maxWidth="lg">
 				<Header />
 				<main>
-					{loggingIn?
+					{true?
 					<div className={classes.mapContainer}>
 						<Map markers={[sender,receiver].filter(item=>!!item)}/>
 						<div className={classes.inputContainer}>
