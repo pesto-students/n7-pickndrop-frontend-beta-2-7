@@ -6,6 +6,7 @@ export const userService = {
 	driverLogin,
 	userOtpVerification,
 	driverOtpVerification,
+	driverRegistrationCheck,
 	register,
 };
 
@@ -53,6 +54,18 @@ async function driverOtpVerification(otp, email, phone) {
 	};
 
 	return fetch(`${BASE_URL}/driver/otp/authenticate`, requestOptions).then((driver) => {
+		return driver;
+	});
+}
+
+async function driverRegistrationCheck(email, phone) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ email, phone }),
+	};
+
+	return fetch(`${BASE_URL}/driver/checkRegistration`, requestOptions).then((driver) => {
 		return driver;
 	});
 }

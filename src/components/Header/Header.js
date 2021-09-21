@@ -58,7 +58,6 @@ export default function Header() {
 
 	return (
 		<React.Fragment>
-			{console.log(loggingIn + "driver" + deliveryPartnerLoggedIn)}
 			<Toolbar className={classes.toolbar}>
 				<Typography component="h2" variant="h5" color="inherit" align="left" noWrap className={classes.toolbarTitle}>
 					PickNDrop
