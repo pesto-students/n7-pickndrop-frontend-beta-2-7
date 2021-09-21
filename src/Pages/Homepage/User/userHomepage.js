@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Header from "../../../components/Header/Header";
@@ -38,6 +38,8 @@ const featured = [
 
 function UserHomepage() {
 	const classes = useStyles();
+	const [sender, setSender] = useState();
+	const [receiver, setReceiver] = useState();
 	const loggingIn = useSelector((state) => state.userOtpAuthentication.loggedIn);
 	return (
 		<React.Fragment>
@@ -47,17 +49,19 @@ function UserHomepage() {
 				<main>
 					{loggingIn ? (
 						<div className={classes.mapContainer}>
-							<Map />
+							<Map markers={[sender, receiver].filter((item) => !!item)} />
 							<div className={classes.inputContainer}>
 								<AutoComplete
 									inputProps={{
 										placeholder: "Sender's Address",
 									}}
+									onSelect={(data) => setSender(data)}
 								/>
 								<AutoComplete
 									inputProps={{
 										placeholder: "Receiver's Address",
 									}}
+									onSelect={(data) => setReceiver(data)}
 								/>
 							</div>
 						</div>
