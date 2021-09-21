@@ -1,4 +1,5 @@
 import { withScriptjs,withGoogleMap,GoogleMap, Marker } from "react-google-maps"
+import { useRef } from "react";
 const url="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-nugaYdht1xTpXtZ7e5CI3Q0cbiVAWRU";
 const MapComponent=withScriptjs(withGoogleMap(({markers})=>{
   const getZoom=()=>{
@@ -25,23 +26,32 @@ const MapComponent=withScriptjs(withGoogleMap(({markers})=>{
       lng:77.5946
     }
   }
-  return (
-    <GoogleMap
-    defaultZoom={getZoom()}
-    defaultCenter={getCenter()}
-    >
-      {
-        markers.map((position,index)=>{
-          return (
-            <Marker position={position} key={index} />
-          )
-        })
-      }
-        {markers.length===0&&<Marker position={{
-          lat:12.9716,
-          lng:77.5946
+  if(markers.length===0) {
+    return (
+      <GoogleMap
+      defaultZoom={getZoom()}
+      defaultCenter={getCenter()}
+      >
+        {<Marker position={{
+            lat:12.9716,
+            lng:77.5946
         }}/>}
-    </GoogleMap>)
+      </GoogleMap>   ); 
+  } else {
+    return (
+      <GoogleMap
+      defaultZoom={getZoom()}
+      defaultCenter={getCenter()}
+      >
+        {
+          markers.map((position,index)=>{
+            return (
+              <Marker position={position} key={index} />
+            )
+          })
+        }
+      </GoogleMap>);
+  }
 }));
 const Map=props=>{
   return <MapComponent {...props} 

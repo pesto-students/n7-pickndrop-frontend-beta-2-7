@@ -43,8 +43,6 @@ const AutoComplete=({inputProps,onSelect})=>{
                 )
             })
         }
-      <ComboboxOption value="Apple" />
-      <ComboboxOption value="Banana" />
     </ComboboxList>
   </ComboboxPopover>
 </Combobox>
