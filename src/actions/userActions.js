@@ -41,6 +41,14 @@ function deliveryPartnerLogin(email, phone) {
 				dispatch(failure(error.toString()));
 			}
 		);
+		userService.driverRegistrationCheck(email, phone).then(
+			(user) => {
+				if(user.status === 500){
+					dispatch({ type: userConstants.DRIVER_REGISTRATION_CHECK_FAILURE, error: 'Already Registrered'})
+			   }
+			}
+		)
+
 	};
 
 	function success(driver) {

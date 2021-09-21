@@ -14,6 +14,7 @@ import { TextField } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../actions";
+import { BASE_URL } from "../../services/apiurl";
 
 function Register() {
 	const classes = useStyles();
@@ -35,6 +36,8 @@ function Register() {
 		drivingLicense: "",
 	});
 
+	const [file, setFile] = useState([]);
+
 	const {
 		firstName,
 		lastName,
@@ -55,29 +58,53 @@ function Register() {
 		setInputs((inputs) => ({ ...inputs, [name]: value }));
 	}
 
+	function handleFileUpload(e) {
+		const data = new FormData();
+		data.append("file", e.target.files[0]);
+		fetch(`${BASE_URL}/upload`, data).then((res) => {
+			setFile(res.data);
+		});
+	}
+
 	const dispatch = useDispatch();
 
 	function handleSubmit(e) {
 		e.preventDefault();
 
 		setSubmitted(true);
-		dispatch(
-			userActions.register(
-				firstName,
-				lastName,
-				fatherName,
-				city,
-				completeAddress,
-				language,
-				date,
-				emergencyContact,
-				workExperience,
-				vehicleDetails,
-				panCard,
-				aadharCard,
-				drivingLicense
-			)
-		);
+		if (
+			firstName &&
+			lastName &&
+			fatherName &&
+			city &&
+			completeAddress &&
+			language &&
+			date &&
+			emergencyContact &&
+			workExperience &&
+			vehicleDetails &&
+			panCard &&
+			aadharCard &&
+			drivingLicense
+		) {
+			dispatch(
+				userActions.register(
+					firstName,
+					lastName,
+					fatherName,
+					city,
+					completeAddress,
+					language,
+					date,
+					emergencyContact,
+					workExperience,
+					vehicleDetails,
+					panCard,
+					aadharCard,
+					drivingLicense
+				)
+			);
+		}
 	}
 
 	return (
@@ -95,8 +122,9 @@ function Register() {
 						<TextField
 							error={submitted && !firstName ? true : false}
 							onChange={handleChange}
-							name="name"
+							name="firstName"
 							value={firstName}
+							type="na"
 							id="firstName"
 							label="First Name"
 							variant="outlined"
@@ -105,7 +133,7 @@ function Register() {
 						<TextField
 							error={submitted && !lastName ? true : false}
 							onChange={handleChange}
-							name="name"
+							name="lastName"
 							value={lastName}
 							id="lastName"
 							label="Last Name"
@@ -115,7 +143,7 @@ function Register() {
 						<TextField
 							error={submitted && !fatherName ? true : false}
 							onChange={handleChange}
-							name="name"
+							name="fatherName"
 							value={fatherName}
 							id="fatherName"
 							label="Father's Name"
@@ -198,13 +226,21 @@ function Register() {
 						</div>
 					</AccordionSummary>
 					<AccordionDetails className={classes.details}>
-						<input accept="image/*" className={classes.input} id="contained-button-file" multiple type="file" />
+						<input
+							accept="image/*"
+							className={classes.input}
+							id="contained-button-file"
+							name="file"
+							type="file"
+							onChange={handleFileUpload}
+						/>
 						<label className={classes.photoLabel} htmlFor="contained-button-file">
 							<Button variant="contained" color="primary" component="span">
 								<PhotoCamera className={classes.photo} />
 								Upload Image
 							</Button>
 						</label>
+						<img src={file} alt="upload-image" width="200" height="200" />
 					</AccordionDetails>
 					<Divider />
 					<AccordionActions className={classes.action}>
