@@ -24,6 +24,7 @@ function DeliveryPartnerHomepage() {
 	const { email, phone } = inputs;
 	const loggedIn = useSelector((state) => state.driverOtpAuthentication.driverLoggedIn);
 	const error = useSelector((state) => state.driverOtpAuthentication.error);
+	const alreadyRegistered = useSelector((state) => state.driverAuthentication.alreadyRegistered);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -51,13 +52,15 @@ function DeliveryPartnerHomepage() {
 
 		if (driverOtp && email && phone) {
 			dispatch(userActions.driverOtpVerification(driverOtp, email, phone));
-			loggedIn && history.push("/register");
+			if (!alreadyRegistered && loggedIn) history.push("/register")
+			if (alreadyRegistered && loggedIn) history.push("/taskAssigned");
 		}
 	}
 
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
+			{console.log(alreadyRegistered + " logged " + loggedIn)}
 			<Grid item xs={false} sm={4} md={7} className={classes.image} />
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
