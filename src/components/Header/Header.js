@@ -6,8 +6,9 @@ import { Fab, FormControl, MenuItem, Modal, Select } from "@material-ui/core";
 import { Login } from "../../Pages/Login/Login";
 import { Link } from "react-router-dom";
 import { useStyles } from "./headerStyle";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { userConstants } from "../../constants/userConstants";
 
 function getModalStyle() {
 	const top = 50;
@@ -22,6 +23,7 @@ function getModalStyle() {
 
 export default function Header() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
 	const [open, setOpen] = React.useState(false);
 
 	const [location, setLocation] = React.useState("");
@@ -87,10 +89,23 @@ export default function Header() {
 					</Button>
 				)}
 				{loggingIn || deliveryPartnerLoggedIn ? (
+					<>
+					<Link to='/profile'>
 					<Fab color="primary" variant="extended" className={classes.profile}>
 						<AccountCircleIcon className={classes.extendedIcon} />
 						Profile
 					</Fab>
+					</Link>
+					<Link to='/'>
+					<Fab onClick={()=>{dispatch({
+						type:userConstants.LOGOUT
+					});
+					}} color="primary" variant="extended" className={classes.profile}>
+						<AccountCircleIcon className={classes.extendedIcon} />
+						Logout
+					</Fab>
+					</Link>
+					</>
 				) : (
 					<Button className={classes.button} variant="contained" size="small" color="primary" onClick={handleOpen}>
 						Sign in
