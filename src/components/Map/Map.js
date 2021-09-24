@@ -10,12 +10,13 @@ const Map = ({ markers }) => {
       const distance = Math.sqrt(
         latDistance * latDistance + lngDistance * lngDistance
       );
-      return Math.floor(distance * 10);
+      return Math.floor(distance * 4);
     }
     return 8;
   };
   const getCenter = () => {
     if (markers.length === 2) {
+      return markers[1];
       return {
         lat: (markers[0].lat + markers[1].lat) / 2,
         lng: (markers[0].lng + markers[1].lng) / 2,
