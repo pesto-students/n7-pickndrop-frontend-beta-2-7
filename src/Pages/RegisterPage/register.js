@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionActions from "@material-ui/core/AccordionActions";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
 import { useStyles } from "./registerStyle";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { TextField } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../actions";
@@ -30,6 +28,7 @@ function Register() {
 		date: "",
 		emergencyContact: "",
 		workExperience: "",
+		preferredLocation: "",
 		vehicleDetails: "",
 		panCard: "",
 		aadharCard: "",
@@ -48,6 +47,7 @@ function Register() {
 		date,
 		emergencyContact,
 		workExperience,
+		preferredLocation,
 		vehicleDetails,
 		panCard,
 		aadharCard,
@@ -82,6 +82,7 @@ function Register() {
 			date &&
 			emergencyContact &&
 			workExperience &&
+			preferredLocation &&
 			vehicleDetails &&
 			panCard &&
 			aadharCard &&
@@ -98,6 +99,7 @@ function Register() {
 					date,
 					emergencyContact,
 					workExperience,
+					preferredLocation,
 					vehicleDetails,
 					panCard,
 					aadharCard,
@@ -113,7 +115,7 @@ function Register() {
 			<h2>Become a delivery Partner by simple registration</h2>
 			<form noValidate autoComplete="off" name="registerForm" onSubmit={handleSubmit}>
 				<Accordion defaultExpanded>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="1">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Personal Info</Typography>
 						</div>
@@ -180,17 +182,31 @@ function Register() {
 							variant="outlined"
 							helperText={submitted && !language ? "Language is required" : ""}
 						/>
+						<FormControl>
+							<InputLabel id="preferredLocation-label">Preferred Location</InputLabel>
+							<Select
+								style={{ textAlign: "left" }}
+								error={submitted && !preferredLocation ? true : false}
+								labelId="preferredLocation-label"
+								id="preferredLocation"
+								value={preferredLocation}
+								label="Preferred Location"
+								name="preferredLocation"
+								onChange={handleChange}
+							>
+								<MenuItem value="">
+									<em>None</em>
+								</MenuItem>
+								<MenuItem value={"Kormangala"}>Kormangala</MenuItem>
+								<MenuItem value={"Whitefeild"}>Whitefeild</MenuItem>
+								<MenuItem value={"J P Nagar"}>J P Nagar</MenuItem>
+								<MenuItem value={"Indiranagar"}>Indiranagar</MenuItem>
+							</Select>
+						</FormControl>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="2">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Date of Birth </Typography>
 						</div>
@@ -211,16 +227,9 @@ function Register() {
 							helperText={submitted && !date ? "Date of Birth is required" : ""}
 						/>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="3">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Upload Image </Typography>
 						</div>
@@ -242,16 +251,9 @@ function Register() {
 						</label>
 						<img src={file} alt="upload-image" width="200" height="200" />
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="4">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Emergency contact</Typography>
 						</div>
@@ -268,16 +270,9 @@ function Register() {
 							helperText={submitted && !emergencyContact ? "Emergency Conatact is required" : ""}
 						/>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="5">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Work Preferences</Typography>
 						</div>
@@ -295,16 +290,9 @@ function Register() {
 							helperText={submitted && !workExperience ? "Work Experience is required" : ""}
 						/>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="6">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Vehicle details</Typography>
 						</div>
@@ -322,16 +310,9 @@ function Register() {
 							helperText={submitted && !vehicleDetails ? "Vehicle Details is required" : ""}
 						/>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="panel1c-header">
+					<AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1c-content" id="7">
 						<div className={classes.column}>
 							<Typography className={classes.heading}>Personal Document</Typography>
 						</div>
@@ -371,13 +352,6 @@ function Register() {
 							helperText={submitted && !drivingLicense ? "Driving License number is required" : ""}
 						/>
 					</AccordionDetails>
-					<Divider />
-					<AccordionActions className={classes.action}>
-						<Button size="small">Cancel</Button>
-						<Button size="small" color="primary">
-							Save
-						</Button>
-					</AccordionActions>
 				</Accordion>
 				<div className={classes.submit}>
 					<Button variant="contained" color="secondary" className={classes.button}>
