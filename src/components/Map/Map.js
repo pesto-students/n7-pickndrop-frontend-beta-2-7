@@ -1,63 +1,90 @@
-import { withScriptjs,withGoogleMap,GoogleMap, Marker } from "react-google-maps"
-import { useRef } from "react";
-const url="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-nugaYdht1xTpXtZ7e5CI3Q0cbiVAWRU";
-const MapComponent=withScriptjs(withGoogleMap(({markers})=>{
-  const getZoom=()=>{
-    if(markers.length===2){
-      const latDistance=Math.abs(markers[0].lat-markers[1].lat);
-      const lngDistance=Math.abs(markers[0].lng-markers[1].lng);
-      const distance=Math.sqrt(latDistance*latDistance+lngDistance*lngDistance)
-      return Math.floor(distance*4);
+import { useEffect, useState } from "react";
+import ReactMapGL, { Marker } from "react-map-gl";
+const mapboxApiAccessToken =
+  "pk.eyJ1IjoiY2hpcmFuamlibmFuZHkiLCJhIjoiY2t0d3djbHA1MmIyOTJ2bnF3Z2dnMjFkdiJ9.LEo8M2aRkhZXJ7mDROxB8w";
+const Map = ({ markers }) => {
+  const getZoom = () => {
+    if (markers.length === 2) {
+      const latDistance = Math.abs(markers[0].lat - markers[1].lat);
+      const lngDistance = Math.abs(markers[0].lng - markers[1].lng);
+      const distance = Math.sqrt(
+        latDistance * latDistance + lngDistance * lngDistance
+      );
+      return Math.floor(distance * 10);
     }
     return 8;
-  }
-  const getCenter=()=>{
-    if(markers.length===2){
+  };
+  const getCenter = () => {
+    if (markers.length === 2) {
       return {
-        lat:(markers[0].lat+markers[1].lat)/2,
-        lng:(markers[0].lng+markers[1].lng)/2
-      }
+        lat: (markers[0].lat + markers[1].lat) / 2,
+        lng: (markers[0].lng + markers[1].lng) / 2,
+      };
     }
-    if(markers.length===1){
+    if (markers.length === 1) {
       return markers[0];
     }
     return {
-      lat:12.9716,
-      lng:77.5946
-    }
-  }
-  if(markers.length===0) {
+      lat: 12.9716,
+      lng: 77.5946,
+    };
+  };
+  const { lat, lng } = getCenter();
+  const [viewport, setViewport] = useState({
+    width: "100vw",
+    height: "100vh",
+    latitude: lat,
+    longitude: lng,
+    zoom: getZoom(),
+  });
+  useEffect(() => {
+    const { lat, lng } = getCenter();
+    setViewport({
+      ...viewport,
+      latitude: lat,
+      longitude: lng,
+      zoom: getZoom(),
+    });
+  }, [markers]);
+  if (markers.length === 0) {
     return (
-      <GoogleMap
-      defaultZoom={getZoom()}
-      defaultCenter={getCenter()}
-      >
-        {<Marker position={{
-            lat:12.9716,
-            lng:77.5946
-        }}/>}
-      </GoogleMap>   ); 
-  } else {
-    return (
-      <GoogleMap
-      defaultZoom={getZoom()}
-      defaultCenter={getCenter()}
+      <ReactMapGL
+        onViewportChange={(viewport) => setViewport(viewport)}
+        mapboxApiAccessToken={mapboxApiAccessToken}
+        {...viewport}
       >
         {
-          markers.map((position,index)=>{
-            return (
-              <Marker position={position} key={index} />
-            )
-          })
+          <Marker latitude={12.9716} longitude={77.5946}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png"
+              width={50}
+              height={50}
+            />
+          </Marker>
         }
-      </GoogleMap>);
+      </ReactMapGL>
+    );
+  } else {
+    return (
+      <ReactMapGL
+        onViewportChange={(viewport) => setViewport(viewport)}
+        mapboxApiAccessToken={mapboxApiAccessToken}
+        {...viewport}
+      >
+        {markers.map((position, index) => {
+          const { lat, lng } = position;
+          return (
+            <Marker latitude={lat} longitude={lng} key={index}>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png"
+                width={50}
+                height={50}
+              />
+            </Marker>
+          );
+        })}
+      </ReactMapGL>
+    );
   }
-}));
-const Map=props=>{
-  return <MapComponent {...props} 
-  googleMapURL={url}
-  loadingElement={<div style={{ height: `100%` }} />}
-  containerElement={<div style={{ height: `${0.8*window.innerHeight}px`,width:`${window.innerWidth}px` }} />}
-  mapElement={<div style={{ height: `100%` }} />}/>
-}
-export {Map};
+};
+export { Map };
