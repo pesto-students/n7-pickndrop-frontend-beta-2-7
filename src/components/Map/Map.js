@@ -52,6 +52,7 @@ const Map = ({ markers }) => {
       <ReactMapGL
         onViewportChange={(viewport) => setViewport(viewport)}
         mapboxApiAccessToken={mapboxApiAccessToken}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
         {...viewport}
       >
         {
