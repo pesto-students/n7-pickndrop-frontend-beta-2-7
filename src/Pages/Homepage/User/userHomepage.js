@@ -16,6 +16,7 @@ import { AutoComplete } from "../../../components/Autocomplete/AutoComplete";
 import { useSelector } from "react-redux";
 import { useStyles } from "./userHomePageStyle";
 import { createTask } from "../../../services/taskService";
+import { useHistory } from "react-router-dom";
 const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
   description:
@@ -56,6 +57,7 @@ const featured = [
 ];
 
 function UserHomepage() {
+  const history = useHistory();
   const classes = useStyles();
   const [sender, setSender] = useState();
   const [receiver, setReceiver] = useState();
@@ -67,10 +69,10 @@ function UserHomepage() {
   });
   const [current, setCurrent] = useState("");
   const [errors, setErrors] = useState({
-    title: "",
-    description: "",
-    senderPhoneNo: "",
-    receiverPhoneNo: "",
+    title: false,
+    description: false,
+    senderPhoneNo: false,
+    receiverPhoneNo: false,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -138,6 +140,7 @@ function UserHomepage() {
         senderPhoneNo: "",
         receiverPhoneNo: "",
       });
+      history.push("/profile");
     } catch (e) {
       console.log(e);
     }
@@ -229,6 +232,19 @@ function UserHomepage() {
                     fullWidth
                   >
                     Add Task
+                  </Button>
+                  <Button
+                    style={{
+                      background: "#d65a50",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      setCurrent("");
+                    }}
+                    type="primary"
+                    fullWidth
+                  >
+                    Cancel
                   </Button>
                 </Box>
               </Modal>
