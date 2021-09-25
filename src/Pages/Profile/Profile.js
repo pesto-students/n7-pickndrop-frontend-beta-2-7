@@ -6,27 +6,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Header from "../../components/Header/Header";
+import Modal from "@material-ui/core/Modal";
 import Footer from "../../components/Footer/Footer";
 import { useStyles } from "./profileStyle";
-import { getTasks } from "../../services/taskService";
-const mockData = [
-  {
-    sender: {
-      lat: 12.9716,
-      lng: 77.5946,
-      place: "Shivanagar, Basaveshwar Nagar, Bengaluru, Karnataka",
-    },
-    receiver: {
-      lat: 12.9716,
-      lng: 77.5946,
-      place: "Stage 3, Indiranagar, Bengaluru, Karnataka 560038",
-    },
-    description: "It is a book with some notes",
-  },
-];
+import { getTasks, paymentTask } from "../../services/taskService";
+import StripeModal from "../../components/StripeModal/StripeModal.js";
 const Profile = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [current, setCurrent] = useState(-1);
   const getData = async () => {
     try {
       const { data } = await getTasks();
@@ -57,21 +45,38 @@ const Profile = () => {
               "Support",
               "About",
             ].map((text, index) => (
-              <ListItem key={index} button>
+              <ListItem key={index} button selected={index === 0}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
           <main className={classes.ordersContainer}>
             {data.map((item, index) => {
-              const { sender, receiver, description, title, price } = item;
+              const {
+                sender,
+                receiver,
+                description,
+                paymentMethod,
+                title,
+                price,
+              } = item;
               const { address: senderPlace } = sender;
               const { address: receiverPlace } = receiver;
               return (
                 <div className={classes.ordersListContainer} key={index}>
                   <div className={classes.ordersListHeader}>
                     <span className={classes.headerText}>{title}</span>
-                    <span className={classes.priceText}>Paid: Rs.{price}</span>
+                    <span
+                      onClick={() => {
+                        if (!paymentMethod) {
+                          setCurrent(index);
+                        }
+                      }}
+                      className={classes.priceText}
+                    >
+                      {paymentMethod ? "Paid: Rs." : "Pay Now Rs."}
+                      {price}
+                    </span>
                   </div>
                   <div className={classes.ordersListAddressContainer}>
                     <div className={classes.ordersListAddress}>
@@ -91,6 +96,20 @@ const Profile = () => {
             })}
           </main>
         </div>
+        <Modal open={current !== -1}>
+          <StripeModal
+            onSubmit={async (paymentMethod) => {
+              try {
+                await paymentTask(data[current]._id, paymentMethod);
+                await getTasks();
+                setCurrent(-1);
+              } catch (e) {
+                console.log(e);
+              }
+            }}
+            price={data[current]?.price}
+          />
+        </Modal>
         <Footer />
       </Container>
     </>

@@ -18,3 +18,15 @@ export const getTasks = async () => {
   const res = await fetch(`${BASE_URL}/tasks`, requestOptions);
   return await res.json();
 };
+export const paymentTask = async (id, paymentMethod) => {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      paymentMethod,
+    }),
+  };
+
+  const res = await fetch(`${BASE_URL}/tasks/payment/${id}`, requestOptions);
+  return await res.json();
+};

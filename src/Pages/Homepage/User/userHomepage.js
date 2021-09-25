@@ -158,6 +158,7 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Sender's Address",
+                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && receiver) {
@@ -169,6 +170,7 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Receiver's Address",
+                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && sender) {
@@ -193,7 +195,9 @@ function UserHomepage() {
                     error={errors.title}
                     value={values.title}
                     name="title"
+                    variant="outlined"
                     onChange={handleChange}
+                    margin="normal"
                     placeholder="Title of Material to be sent"
                   />
                   <Input
@@ -201,6 +205,8 @@ function UserHomepage() {
                     error={errors.description}
                     value={values.description}
                     name="description"
+                    margin="normal"
+                    variant="outlined"
                     onChange={handleChange}
                     placeholder="Description of Material to be sent"
                   />
@@ -209,8 +215,10 @@ function UserHomepage() {
                     error={errors.senderPhoneNo}
                     value={values.senderPhoneNo}
                     name="senderPhoneNo"
+                    variant="outlined"
                     onChange={handleChange}
                     type="number"
+                    margin="normal"
                     placeholder="Sender's Phone Number"
                   />
                   <Input
@@ -218,7 +226,9 @@ function UserHomepage() {
                     error={errors.receiverPhoneNo}
                     value={values.receiverPhoneNo}
                     name="receiverPhoneNo"
+                    variant="outlined"
                     onChange={handleChange}
+                    margin="normal"
                     type="number"
                     placeholder="Receiver's Phone Number"
                   />
@@ -227,6 +237,7 @@ function UserHomepage() {
                       background: "#3f51b5",
                       color: "white",
                     }}
+                    className={classes.button}
                     onClick={addTask}
                     type="primary"
                     fullWidth
