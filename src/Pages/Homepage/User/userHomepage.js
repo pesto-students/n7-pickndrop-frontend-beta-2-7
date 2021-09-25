@@ -11,26 +11,25 @@ import { AutoComplete } from "../../../components/Autocomplete/AutoComplete";
 import { useSelector } from "react-redux";
 import { useStyles } from "./userHomePageStyle";
 const mainFeaturedPost = {
-	title: "Title of a longer featured blog post",
+	title: "Welcome to PickNDrop",
 	description:
-		"Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+		"The one stop online solution to deliver your package within a city without any hussle and fair price.",
 	image: "https://source.unsplash.com/random",
 	imgText: "main image description",
-	linkText: "Continue reading…",
 };
 
 const featured = [
 	{
-		title: "Featured post",
-		date: "Nov 12",
-		description: "This is a wider card with supporting text below as a natural lead-in to additional content.",
+		title: "User Feedback",
+		date: "Piyush",
+		description: "Fantastic service and on time delivery in just 50 bucks",
 		image: "https://source.unsplash.com/random",
 		imageText: "Image Text",
 	},
 	{
-		title: "Post title",
-		date: "Nov 11",
-		description: "This is a wider card with supporting text below as a natural lead-in to additional content.",
+		title: "Another happy customer",
+		date: "Akash",
+		description: "This is a widely used platform which comes with a fair price",
 		image: "https://source.unsplash.com/random",
 		imageText: "Image Text",
 	},
