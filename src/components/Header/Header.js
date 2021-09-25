@@ -4,57 +4,62 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Fab, FormControl, MenuItem, Modal, Select } from "@material-ui/core";
 import { Login } from "../../Pages/Login/Login";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useStyles } from "./headerStyle";
 import { useSelector, useDispatch } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { userConstants } from "../../constants/userConstants";
 
 function getModalStyle() {
-	const top = 50;
-	const left = 50;
+  const top = 50;
+  const left = 50;
 
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`,
-	};
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
 }
 
 export default function Header() {
-	const classes = useStyles();
-	const dispatch = useDispatch();
-	const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
 
-	const [location, setLocation] = React.useState("");
-	const [modalStyle] = React.useState(getModalStyle);
+  const [location, setLocation] = React.useState("");
+  const [modalStyle] = React.useState(getModalStyle);
 
-	const loggingIn = useSelector((state) => state.userOtpAuthentication.loggedIn);
-	const deliveryPartnerLoggedIn = useSelector((state) => state.driverOtpAuthentication.driverLoggedIn);
+  const loggingIn = useSelector(
+    (state) => state.userOtpAuthentication.loggedIn
+  );
+  const deliveryPartnerLoggedIn = useSelector(
+    (state) => state.driverOtpAuthentication.driverLoggedIn
+  );
 
-	const handleChange = (event) => {
-		setLocation(event.target.value);
-	};
+  const handleChange = (event) => {
+    setLocation(event.target.value);
+  };
 
-	const handleOpen = () => {
-		setOpen(true);
-	};
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-	const handleClose = () => {
-		setOpen(false);
-	};
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-	const login = (
-		<div style={modalStyle} className={classes.paper}>
-			<h2 className={classes.heading} id="login-title">
-				Login / Sign up
-			</h2>
-			<p className={classes.subHeading} id="login-description">
-				Get started with PickNDrop
-			</p>
-			<Login />
-		</div>
-	);
+  const login = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2 className={classes.heading} id="login-title">
+        Login / Sign up
+      </h2>
+      <p className={classes.subHeading} id="login-description">
+        Get started with PickNDrop
+      </p>
+      <Login />
+    </div>
+  );
 
 	return (
 		<React.Fragment>
