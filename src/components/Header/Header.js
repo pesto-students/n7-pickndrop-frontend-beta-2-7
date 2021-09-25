@@ -23,7 +23,6 @@ function getModalStyle() {
 
 export default function Header() {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
