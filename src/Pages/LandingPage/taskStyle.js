@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
 		fontSize: "14px",
 		fontWeight: "600",
 		textAlign: "left",
-		padding: "10px 0",
+		padding: "0 0 10px 0",
         marginBottom: '15px',
 		borderBottom: "1px solid #c2cbd4",
 	},

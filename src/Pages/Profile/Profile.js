@@ -9,21 +9,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useStyles } from "./profileStyle";
 import { getTasks } from "../../services/taskService";
-const mockData = [
-  {
-    sender: {
-      lat: 12.9716,
-      lng: 77.5946,
-      place: "Shivanagar, Basaveshwar Nagar, Bengaluru, Karnataka",
-    },
-    receiver: {
-      lat: 12.9716,
-      lng: 77.5946,
-      place: "Stage 3, Indiranagar, Bengaluru, Karnataka 560038",
-    },
-    description: "It is a book with some notes",
-  },
-];
+
 const Profile = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
