@@ -67,24 +67,6 @@ export default function Header() {
 					<Link style={{textDecoration: 'none'}} to="/">PickNDrop</Link>
 				</Typography>
 				{!deliveryPartnerLoggedIn && (
-					<FormControl className={classes.formControl}>
-						<Select
-							value={location}
-							onChange={handleChange}
-							displayEmpty
-							className={classes.selectEmpty}
-							inputProps={{ "aria-label": "Without label" }}
-						>
-							<MenuItem value="">
-								<em>Location</em>
-							</MenuItem>
-							<MenuItem value={10}>Bangalore</MenuItem>
-							<MenuItem value={20}>Pune</MenuItem>
-							<MenuItem value={30}>New Delhi</MenuItem>
-						</Select>
-					</FormControl>
-				)}
-				{!deliveryPartnerLoggedIn && (
 					<Button className={classes.button} variant="contained" size="small" color="primary">
 						<Link to="/deliveryPartnerHomepage" className={classes.link}>
 							For Delivery Partner

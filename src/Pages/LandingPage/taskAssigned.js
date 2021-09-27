@@ -13,6 +13,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { getTasks } from "../../services/taskService";
 import { CheckCircleOutlined } from "@material-ui/icons";
 import { Map } from "../../components/Map/Map";
+import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
+import CircleTwoToneIcon from "@mui/icons-material/CircleTwoTone";
+import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 
 function TaskAssigned() {
 	const [items, setItems] = useState([]);
@@ -73,18 +76,43 @@ function TaskAssigned() {
 								<Box sx={{ bgcolor: "#eee", height: "auto", marginBottom: "40px", padding: "20px" }}>
 									<Grid container spacing={2}>
 										<Grid item xs={12} md={9}>
-											<div style={{height: "300px"}}>
-                                            <Map
-												markers={[
-													{ lat: senderLat, lng: senderLng, address: senderPlace },
-													{ lat: receiverLat, lng: receiverLng, address: receiverPlace },
-												].filter((item) => !!item)}
-											/>
-                                            </div>
+											<div style={{ height: "300px" }}>
+												<Map
+													markers={[
+														{ lat: senderLat, lng: senderLng, address: senderPlace },
+														{ lat: receiverLat, lng: receiverLng, address: receiverPlace },
+													].filter((item) => !!item)}
+												/>
+											</div>
 										</Grid>
 										<Grid item xs={12} md={3}>
 											<div className={classes.invoice}>
 												<span>Task Status</span>
+											</div>
+											<div className={classes.taskStatus}>
+												<span className={classes.taskIcon}><CheckCircleTwoToneIcon fontSize="small" /></span>
+												<span> Task received</span>
+											</div>
+                                            <div className={classes.dot}>
+                                                <MoreVertTwoToneIcon />
+                                            </div>
+											<div className={classes.taskStatus}>
+												<span className={classes.taskIcon}><CircleTwoToneIcon fontSize="small" /></span>
+												<span> Order Accepted</span>
+											</div>
+                                            <div className={classes.dot}>
+                                                <MoreVertTwoToneIcon />
+                                            </div>
+											<div className={classes.taskStatus}>
+												<span className={classes.taskIcon}><CircleTwoToneIcon fontSize="small" /></span>
+												<span> Order Picked up</span>
+											</div>
+                                            <div className={classes.dot}>
+                                                <MoreVertTwoToneIcon />
+                                            </div>
+											<div className={classes.taskStatus}>
+												<span className={classes.taskIcon}><CircleTwoToneIcon fontSize="small" /></span>
+												<span> Order Delivered</span>
 											</div>
 										</Grid>
 										<Grid item xs={12} md={9}>

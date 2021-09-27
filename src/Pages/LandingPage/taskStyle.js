@@ -13,19 +13,32 @@ export const useStyles = makeStyles((theme) => ({
 		fontWeight: "600",
 		textAlign: "left",
 		padding: "0 0 10px 0",
-        marginBottom: '15px',
+		marginBottom: "15px",
 		borderBottom: "1px solid #c2cbd4",
 	},
-    paid: {
-        textAlign: 'left',
-        margin: '0',
-        fontSize: '12px',
-    },
-    rate: {
-        textAlign: 'right',
-        margin: '0',
-        fontSize: '12px',
-    },
+	taskStatus: {
+		textAlign: "left",
+	},
+	dot: {
+		textAlign: "left",
+		position: "relative",
+		top: "4px",
+		left: "-2px",
+	},
+	taskIcon: {
+		position: "relative",
+		top: "5px",
+	},
+	paid: {
+		textAlign: "left",
+		margin: "0",
+		fontSize: "12px",
+	},
+	rate: {
+		textAlign: "right",
+		margin: "0",
+		fontSize: "12px",
+	},
 	date: {
 		fontSize: "12px",
 		color: "#47525d",
