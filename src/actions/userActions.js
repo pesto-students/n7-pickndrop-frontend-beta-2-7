@@ -8,10 +8,14 @@ export const userActions = {
 	userOtpVerification,
 	driverOtpVerification,
 	register,
+	acceptOrder,
+	pickedUpOrder,
+	deliveredOrder,
+	cancelOrder,
 	logout,
 };
 
-function login(email, phone, from) {
+function login(email, phone) {
 	return (dispatch) => {
 		userService.login(email, phone).then(
 			(user) => {
@@ -156,6 +160,87 @@ function register(
 		return { type: userConstants.REGISTER_FAILURE, error };
 	}
 	
+}
+
+function acceptOrder(orderID) {
+	return (dispatch) => {
+		userService.acceptTask(orderID).then(
+			(task) => {
+				dispatch(success(task));
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+			}
+		);
+	};
+
+	function success(task) {
+		return { type: userConstants.ACCEPT_TASK_SUCCESS, task };
+	}
+	function failure(error) {
+		return { type: userConstants.ACCEPT_TASK_FAILURE, error };
+	}
+}
+
+
+function pickedUpOrder(orderID) {
+	return (dispatch) => {
+		userService.pickedTask(orderID).then(
+			(task) => {
+				dispatch(success(task));
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+			}
+		);
+	};
+
+	function success(task) {
+		return { type: userConstants.PICKUP_TASK_SUCCESS, task };
+	}
+	function failure(error) {
+		return { type: userConstants.PICKUP_TASK_FAILURE, error };
+	}
+}
+
+function deliveredOrder(orderID) {
+	return (dispatch) => {
+		userService.deliveredTask(orderID).then(
+			(task) => {
+				dispatch(success(task));
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+			}
+		);
+	};
+
+	function success(task) {
+		return { type: userConstants.DELIVERED_TASK_SUCCESS, task };
+	}
+	function failure(error) {
+		return { type: userConstants.DELIVERED_TASK_FAILURE, error };
+	}
+}
+
+function cancelOrder(orderID) {
+	return (dispatch) => {
+		userService.cancelTask(orderID).then(
+			(task) => {
+				dispatch(success(task));
+			},
+			(error) => {
+				dispatch(failure(error.toString()));
+			}
+		);
+	};
+
+	function success(task) {
+		return { type: userConstants.CANCEL_TASK_SUCCESS, task };
+	}
+	function failure(error) {
+		return { type: userConstants.CANCEL_TASK_FAILURE, error };
+	}
 }
 
 function logout() {

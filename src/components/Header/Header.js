@@ -2,9 +2,9 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Fab, FormControl, MenuItem, Modal, Select } from "@material-ui/core";
+import { Fab, Modal, } from "@material-ui/core";
 import { Login } from "../../Pages/Login/Login";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useStyles } from "./headerStyle";
 import { useSelector, useDispatch } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -26,7 +26,6 @@ export default function Header() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
-  const [location, setLocation] = React.useState("");
   const [modalStyle] = React.useState(getModalStyle);
 
   const loggingIn = useSelector(
@@ -36,9 +35,6 @@ export default function Header() {
     (state) => state.driverOtpAuthentication.driverLoggedIn
   );
 
-  const handleChange = (event) => {
-    setLocation(event.target.value);
-  };
 
   const handleOpen = () => {
     setOpen(true);

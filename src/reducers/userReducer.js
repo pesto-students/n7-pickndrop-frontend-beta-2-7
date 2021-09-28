@@ -4,6 +4,13 @@ const userInitialState = {
 	user: {},
 };
 
+const taskInitialState = {
+	isActive: false,
+	isPickedUp: false,
+	isCancelled: false,
+	isDelieverd: false,
+};
+
 const driverInitialState = {
 	driver: {},
 	alreadyRegistered: false,
@@ -11,7 +18,7 @@ const driverInitialState = {
 
 const otpInitialState = { loggedIn: false, otp: "", user: {}, error: "" };
 
-const driverOtpInitialState = { driverLoggedIn: false, otp: "", driver: {}, error: ""};
+const driverOtpInitialState = { driverLoggedIn: false, otp: "", driver: {}, error: "" };
 
 const registerInitialState = {
 	firstName: "",
@@ -58,12 +65,12 @@ export function driverAuthentication(state = driverInitialState, action) {
 			return {
 				...state,
 				alreadyRegistered: false,
-			}
+			};
 		case userConstants.DRIVER_REGISTRATION_CHECK_FAILURE:
 			return {
 				...state,
 				alreadyRegistered: true,
-			}
+			};
 		case userConstants.LOGOUT:
 			return {};
 		default:
@@ -133,6 +140,41 @@ export function register(state = registerInitialState, action) {
 				drivingLicense: action.drivingLicense,
 			};
 		case userConstants.REGISTER_FAILURE:
+			return {};
+		default:
+			return state;
+	}
+}
+
+export function task(state = taskInitialState, action) {
+	switch (action.type) {
+		case userConstants.ACCEPT_TASK_SUCCESS:
+			return {
+				...state,
+				isActive: true,
+			};
+		case userConstants.PICKUP_TASK_SUCCESS:
+			return {
+				...state,
+				isPickedUp: true,
+			};
+		case userConstants.DELIVERED_TASK_SUCCESS:
+			return {
+				...state,
+				isDelieverd: true,
+			};
+		case userConstants.CANCEL_TASK_SUCCESS:
+			return {
+				...state,
+				isCancelled: true,
+			};
+		case userConstants.ACCEPT_TASK_FAILURE:
+			return {};
+		case userConstants.PICKUP_TASK_FAILURE:
+			return {};
+		case userConstants.DELIVERED_TASK_FAILURE:
+			return {};
+		case userConstants.CANCEL_TASK_FAILURE:
 			return {};
 		default:
 			return state;

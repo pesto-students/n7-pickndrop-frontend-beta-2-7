@@ -18,3 +18,4 @@ export const getTasks = async () => {
   const res = await fetch(`${BASE_URL}/tasks`, requestOptions);
   return await res.json();
 };
+
