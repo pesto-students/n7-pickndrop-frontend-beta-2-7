@@ -21,6 +21,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   input: {
     lineHeight: 2,
+    border: "2px solid black",
+    width: window.innerWidth * 0.3,
   },
   button: {
     margin: "20px 0",
