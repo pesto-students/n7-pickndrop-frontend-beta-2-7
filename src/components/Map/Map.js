@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 const mapboxApiAccessToken =
   "pk.eyJ1IjoiY2hpcmFuamlibmFuZHkiLCJhIjoiY2t0d3djbHA1MmIyOTJ2bnF3Z2dnMjFkdiJ9.LEo8M2aRkhZXJ7mDROxB8w";
+
 const Map = ({ markers }) => {
   const getZoom = () => {
     if (markers.length === 2) {
@@ -14,13 +15,10 @@ const Map = ({ markers }) => {
     }
     return 8;
   };
+
   const getCenter = () => {
     if (markers.length === 2) {
       return markers[1];
-      return {
-        lat: (markers[0].lat + markers[1].lat) / 2,
-        lng: (markers[0].lng + markers[1].lng) / 2,
-      };
     }
     if (markers.length === 1) {
       return markers[0];
@@ -30,14 +28,17 @@ const Map = ({ markers }) => {
       lng: 77.5946,
     };
   };
+
   const { lat, lng } = getCenter();
+
   const [viewport, setViewport] = useState({
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "100%",
     latitude: lat,
     longitude: lng,
     zoom: getZoom(),
   });
+
   useEffect(() => {
     const { lat, lng } = getCenter();
     setViewport({
@@ -47,6 +48,7 @@ const Map = ({ markers }) => {
       zoom: getZoom(),
     });
   }, [markers]);
+
   if (markers.length === 0) {
     return (
       <ReactMapGL
@@ -58,6 +60,7 @@ const Map = ({ markers }) => {
         {
           <Marker latitude={12.9716} longitude={77.5946}>
             <img
+              alt="marker"
               src="https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png"
               width={50}
               height={50}
@@ -79,6 +82,7 @@ const Map = ({ markers }) => {
           return (
             <Marker latitude={lat} longitude={lng} key={index}>
               <img
+                alt="marker"
                 src="https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png"
                 width={50}
                 height={50}

@@ -6,8 +6,8 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
-    height: "100%",
+    width: window.innerWidth,
+    height: window.innerHeight,
     position: "relative",
   },
   inputContainer: {

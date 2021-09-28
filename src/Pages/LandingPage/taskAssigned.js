@@ -7,181 +7,33 @@ import { Box, Grid } from "@material-ui/core";
 import { useStyles } from "./taskStyle.js";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import PermIdentityOutlinedIcon from "@material-ui/icons/PermIdentityOutlined";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import LocalPhoneIcon from "@material-ui/icons/LocalPhone";
 import { Button, Stack } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-const data = [
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-	{
-		user: "Akash",
-		data: "25-OCT-2021",
-		sendersName: "Akash",
-		sendersAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		sendersContact: 919035819242,
-		sendersContactName: "Akash",
-		receiversName: "Piyush",
-		receiversAddress: "505, Mahaveer Konark Apartment, JP Nagar 5th Phase, Bengaluru - 560067",
-		receiversContact: 919035819242,
-		receiversContactName: "Piyush",
-		amountStatus: "Paid",
-		amountPaid: 35,
-	},
-];
+import { getTasks } from "../../services/taskService";
+import { CheckCircleOutlined } from "@material-ui/icons";
+import { Map } from "../../components/Map/Map";
 
 function TaskAssigned() {
 	const [items, setItems] = useState([]);
 	const [hasMore, setHasMore] = useState(true);
 
-	const fetchOrderList = () => {
-		setItems([...data]);
+	const fetchOrderList = async () => {
+		try {
+			const { data } = await getTasks();
+			setItems(data);
+			setHasMore(false);
+		} catch (e) {
+			console.log(e);
+		}
 	};
+
+	const classes = useStyles();
 
 	useEffect(() => {
 		fetchOrderList();
-	});
+	}, []);
 
-	const classes = useStyles();
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -201,47 +53,77 @@ function TaskAssigned() {
 							</p>
 						}
 					>
-						{items.map((order) => {
+						{items.map((order, index) => {
+							const { sender, receiver, description, title, price } = order;
+							const {
+								address: senderPlace,
+								phoneNo: senderContact,
+								name: senderName,
+								latitude: senderLat,
+								longitude: senderLng,
+							} = sender;
+							const {
+								address: receiverPlace,
+								phoneNo: receiverContact,
+								name: receiverName,
+								latitude: receiverLat,
+								longitude: receiverLng,
+							} = receiver;
 							return (
 								<Box sx={{ bgcolor: "#eee", height: "auto", marginBottom: "40px", padding: "20px" }}>
 									<Grid container spacing={2}>
 										<Grid item xs={12} md={9}>
+											<div style={{height: "300px"}}>
+                                            <Map
+												markers={[
+													{ lat: senderLat, lng: senderLng, address: senderPlace },
+													{ lat: receiverLat, lng: receiverLng, address: receiverPlace },
+												].filter((item) => !!item)}
+											/>
+                                            </div>
+										</Grid>
+										<Grid item xs={12} md={3}>
+											<div className={classes.invoice}>
+												<span>Task Status</span>
+											</div>
+										</Grid>
+										<Grid item xs={12} md={9}>
 											<div className={classes.box}>
-												<div>
+												<div style={{ paddingTop: "5px" }}>
 													<span className={classes.orderDetails}>Order Details</span>
 												</div>
-												<span className={classes.date}>{order.date}</span>
+												<span className={classes.date}>
+													{title} - {description}
+												</span>
 												<div className={classes.address}>
 													<div className={classes.sender}>
 														<ArrowUpwardIcon />
 														<div className={classes.senderName}>
-															<span>{order.sendersName}</span>
+															<span>{senderName}</span>
 														</div>
 														<div className={classes.senderAddress}>
-															<span>{order.sendersAddress}</span>
+															<span>{senderPlace}</span>
 														</div>
 													</div>
 													<div className={classes.senderRecieverContact}>
-														<PermIdentityOutlinedIcon fontSize="small" />
+														<LocalPhoneIcon fontSize="small" />
 														<div className={classes.contact}>
-															<span>{order.sendersContactName}: </span>
-															<span>{order.sendersContact}</span>
+															<span>{senderContact}</span>
 														</div>
 													</div>
 													<div className={classes.receiver}>
 														<ArrowDownwardIcon />
 														<div className={classes.receiverName}>
-															<span>{order.receiversName}</span>
+															<span>{receiverName}</span>
 														</div>
 														<div className={classes.receiverAddress}>
-															<span>{order.receiversAddress}</span>
+															<span>{receiverPlace}</span>
 														</div>
 													</div>
 													<div className={classes.senderRecieverContact}>
-														<PermIdentityOutlinedIcon fontSize="small" />
+														<LocalPhoneIcon fontSize="small" />
 														<div className={classes.contact}>
-															<span>{order.receiversContactName}: </span>
-															<span>{order.receiversContact}</span>
+															<span>{receiverContact}</span>
 														</div>
 													</div>
 												</div>
@@ -255,14 +137,14 @@ function TaskAssigned() {
 												<Grid item xs={9}>
 													<p className={classes.paid}>Partner delivery fee</p>
 													<p className={classes.paid}>
-														{order.amountStatus}
+														Paid {""}
 														<span style={{ position: "relative", top: "5px", left: "3px" }}>
-															<CheckCircleOutlineIcon fontSize="small" />
+															<CheckCircleOutlined fontSize="small" />
 														</span>
 													</p>
 												</Grid>
 												<Grid item xs={3}>
-													<p className={classes.rate}>{order.amountPaid}</p>
+													<p className={classes.rate}>{price}</p>
 												</Grid>
 											</Grid>
 										</Grid>

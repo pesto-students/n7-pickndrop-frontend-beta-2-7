@@ -18,13 +18,30 @@ import { useStyles } from "./userHomePageStyle";
 import { createTask } from "../../../services/taskService";
 import { useHistory } from "react-router-dom";
 const mainFeaturedPost = {
-  title: "Title of a longer featured blog post",
+  title: "Welcome to PickNDrop",
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "The one stop online solution to deliver your package within a city without any hussle and fair price.",
   image: "https://source.unsplash.com/random",
   imgText: "main image description",
-  linkText: "Continue reading…",
 };
+
+const featured = [
+  {
+    title: "User Feedback",
+    date: "Piyush",
+    description: "Fantastic service and on time delivery in just 50 bucks",
+    image: "https://source.unsplash.com/random",
+    imageText: "Image Text",
+  },
+  {
+    title: "Another happy customer",
+    date: "Akash",
+    description: "This is a widely used platform which comes with a fair price",
+    image: "https://source.unsplash.com/random",
+    imageText: "Image Text",
+  },
+];
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -37,25 +54,6 @@ const style = {
   p: 4,
 };
 
-const featured = [
-  {
-    title: "Featured post",
-    date: "Nov 12",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
-    imageText: "Image Text",
-  },
-  {
-    title: "Post title",
-    date: "Nov 11",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random",
-    imageText: "Image Text",
-  },
-];
-
 function UserHomepage() {
   const history = useHistory();
   const classes = useStyles();
@@ -63,9 +61,11 @@ function UserHomepage() {
   const [receiver, setReceiver] = useState();
   const [values, setValues] = useState({
     title: "",
-    description: "",
+    dssescription: "",
     senderPhoneNo: "",
     receiverPhoneNo: "",
+    senderName: "",
+    receiverName: "",
   });
   const [current, setCurrent] = useState("");
   const [errors, setErrors] = useState({
@@ -73,6 +73,8 @@ function UserHomepage() {
     description: false,
     senderPhoneNo: false,
     receiverPhoneNo: false,
+    senderName: false,
+    receiverName: false,
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -106,8 +108,14 @@ function UserHomepage() {
     if (!values.senderPhoneNo) {
       return handleError("senderPhoneNo");
     }
+    if (!values.senderName) {
+      return handleError("senderName");
+    }
     if (!values.receiverPhoneNo) {
       return handleError("receiverPhoneNo");
+    }
+    if (!values.receiverName) {
+      return handleError("receiverName");
     }
     const obj = {
       sender: {
@@ -115,12 +123,14 @@ function UserHomepage() {
         address: sender.address,
         latitude: sender.lat,
         longitude: sender.lng,
+        name: values.senderName,
       },
       receiver: {
         phoneNo: values.receiverPhoneNo,
         address: receiver.address,
         latitude: receiver.lat,
         longitude: receiver.lng,
+        name: values.receiverName,
       },
       title: values.title,
       description: values.description,
@@ -133,12 +143,16 @@ function UserHomepage() {
         description: "",
         senderPhoneNo: "",
         receiverPhoneNo: "",
+        senderName: "",
+        receiverName: "",
       });
       setErrors({
         title: "",
         description: "",
         senderPhoneNo: "",
         receiverPhoneNo: "",
+        senderName: "",
+        receiverName: "",
       });
       history.push("/profile");
     } catch (e) {
@@ -194,10 +208,10 @@ function UserHomepage() {
                     fullWidth
                     error={errors.title}
                     value={values.title}
-                    name="title"
-                    variant="outlined"
-                    onChange={handleChange}
                     margin="normal"
+                    variant="outlined"
+                    name="title"
+                    onChange={handleChange}
                     placeholder="Title of Material to be sent"
                   />
                   <Input
@@ -212,32 +226,54 @@ function UserHomepage() {
                   />
                   <Input
                     fullWidth
+                    error={errors.senderName}
+                    margin="normal"
+                    variant="outlined"
+                    value={values.senderName}
+                    name="senderName"
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Sender's Name"
+                  />
+                  <Input
+                    fullWidth
                     error={errors.senderPhoneNo}
                     value={values.senderPhoneNo}
                     name="senderPhoneNo"
+                    onChange={handleChange}
+                    margin="normal"
+                    variant="outlined"
+                    type="number"
+                    placeholder="Sender's Phone Number"
+                  />
+                  <Input
+                    fullWidth
+                    error={errors.receiverName}
+                    value={values.receiverName}
+                    name="receiverName"
+                    margin="normal"
                     variant="outlined"
                     onChange={handleChange}
-                    type="number"
-                    margin="normal"
-                    placeholder="Sender's Phone Number"
+                    type="text"
+                    placeholder="Receiver Name"
                   />
                   <Input
                     fullWidth
                     error={errors.receiverPhoneNo}
                     value={values.receiverPhoneNo}
                     name="receiverPhoneNo"
-                    variant="outlined"
                     onChange={handleChange}
-                    margin="normal"
                     type="number"
+                    margin="normal"
+                    variant="outlined"
                     placeholder="Receiver's Phone Number"
                   />
                   <Button
                     style={{
                       background: "#3f51b5",
                       color: "white",
+                      margin: "10px 0",
                     }}
-                    className={classes.button}
                     onClick={addTask}
                     type="primary"
                     fullWidth
@@ -248,6 +284,7 @@ function UserHomepage() {
                     style={{
                       background: "#d65a50",
                       color: "white",
+                      margin: "10px 0",
                     }}
                     onClick={() => {
                       setCurrent("");

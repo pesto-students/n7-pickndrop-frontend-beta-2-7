@@ -23,7 +23,6 @@ function getModalStyle() {
 
 export default function Header() {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
@@ -61,100 +60,74 @@ export default function Header() {
     </div>
   );
 
-  return (
-    <React.Fragment>
-      <Toolbar className={classes.toolbar}>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="left"
-          noWrap
-          className={classes.toolbarTitle}
-          onClick={() => history.replace("/")}
-        >
-          PickNDrop
-        </Typography>
-        {!deliveryPartnerLoggedIn && (
-          <FormControl className={classes.formControl}>
-            <Select
-              value={location}
-              onChange={handleChange}
-              displayEmpty
-              className={classes.selectEmpty}
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value="">
-                <em>Location</em>
-              </MenuItem>
-              <MenuItem value={10}>Bangalore</MenuItem>
-              <MenuItem value={20}>Pune</MenuItem>
-              <MenuItem value={30}>New Delhi</MenuItem>
-            </Select>
-          </FormControl>
-        )}
-        {!deliveryPartnerLoggedIn && (
-          <Button
-            className={classes.button}
-            variant="contained"
-            size="small"
-            color="primary"
-          >
-            <Link to="/deliveryPartnerHomepage" className={classes.link}>
-              For Delivery Partner
-            </Link>
-          </Button>
-        )}
-        {loggingIn || deliveryPartnerLoggedIn ? (
-          <>
-            <Link to="/profile">
-              <Fab
-                color="primary"
-                variant="extended"
-                className={classes.profile}
-              >
-                <AccountCircleIcon className={classes.extendedIcon} />
-                Profile
-              </Fab>
-            </Link>
-            <Link to="/">
-              <Fab
-                onClick={() => {
-                  dispatch({
-                    type: userConstants.LOGOUT,
-                  });
-                }}
-                color="primary"
-                variant="extended"
-                className={classes.profile}
-              >
-                <AccountCircleIcon className={classes.extendedIcon} />
-                Logout
-              </Fab>
-            </Link>
-          </>
-        ) : (
-          <Button
-            className={classes.button}
-            variant="contained"
-            size="small"
-            color="primary"
-            onClick={handleOpen}
-          >
-            Sign in
-          </Button>
-        )}
-      </Toolbar>
-      {!loggingIn && (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="login-title"
-          aria-describedby="login-description"
-        >
-          {login}
-        </Modal>
-      )}
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Toolbar className={classes.toolbar}>
+				<Typography component="h2" variant="h5" color="inherit" align="left" noWrap className={classes.toolbarTitle}>
+					<Link style={{textDecoration: 'none'}} to="/">PickNDrop</Link>
+				</Typography>
+				{!deliveryPartnerLoggedIn && (
+					<FormControl className={classes.formControl}>
+						<Select
+							value={location}
+							onChange={handleChange}
+							displayEmpty
+							className={classes.selectEmpty}
+							inputProps={{ "aria-label": "Without label" }}
+						>
+							<MenuItem value="">
+								<em>Location</em>
+							</MenuItem>
+							<MenuItem value={10}>Bangalore</MenuItem>
+							<MenuItem value={20}>Pune</MenuItem>
+							<MenuItem value={30}>New Delhi</MenuItem>
+						</Select>
+					</FormControl>
+				)}
+				{!deliveryPartnerLoggedIn && (
+					<Button className={classes.button} variant="contained" size="small" color="primary">
+						<Link to="/deliveryPartnerHomepage" className={classes.link}>
+							For Delivery Partner
+						</Link>
+					</Button>
+				)}
+				{loggingIn && (
+					<Link style={{textDecoration: 'none'}} to="/profile">
+						<Fab color="primary" variant="extended" className={classes.profile}>
+							<AccountCircleIcon className={classes.extendedIcon} />
+							Profile
+						</Fab>
+					</Link>
+				)}
+				{loggingIn || deliveryPartnerLoggedIn ? (
+					<>
+						<Link style={{textDecoration: 'none'}} to="/">
+							<Fab
+								onClick={() => {
+									dispatch({
+										type: userConstants.LOGOUT,
+									});
+								}}
+								color="primary"
+								variant="extended"
+								className={classes.profile}
+							>
+								<AccountCircleIcon className={classes.extendedIcon} />
+								Logout
+							</Fab>
+						</Link>
+					</>
+				) : (
+					<Button className={classes.button} variant="contained" size="small" color="primary" onClick={handleOpen}>
+						Sign in
+					</Button>
+				)}
+			</Toolbar>
+			{!loggingIn && (
+				<Modal open={open} onClose={handleClose} aria-labelledby="login-title" aria-describedby="login-description">
+					{login}
+				</Modal>
+			)}
+		</React.Fragment>
+	);
 }
