@@ -131,6 +131,10 @@ function UserHomepage() {
 			},
 			title: values.title,
 			description: values.description,
+			isActive: false,
+			isCancelled: false,
+			isPickedUp: false,
+			isDelieverd: false,
 		};
 		try {
 			await createTask(obj);

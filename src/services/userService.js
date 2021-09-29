@@ -7,6 +7,10 @@ export const userService = {
 	userOtpVerification,
 	driverOtpVerification,
 	driverRegistrationCheck,
+	acceptTask,
+	pickedTask,
+	deliveredTask,
+	cancelTask,
 	register,
 };
 
@@ -109,6 +113,54 @@ async function register(
 
 	return fetch(`${BASE_URL}/driver/register`, requestOptions).then((driverDetails) => {
 		return driverDetails;
+	});
+}
+
+async function acceptTask(orderId) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ orderId }),
+	};
+
+	return fetch(`${BASE_URL}/tasks/accept`, requestOptions).then((task) => {
+		return task;
+	});
+}
+
+async function pickedTask(orderId) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ orderId }),
+	};
+
+	return fetch(`${BASE_URL}/tasks/pickedup`, requestOptions).then((task) => {
+		return task;
+	});
+}
+
+async function deliveredTask(orderId) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ orderId }),
+	};
+
+	return fetch(`${BASE_URL}/tasks/delivered`, requestOptions).then((task) => {
+		return task;
+	});
+}
+
+async function cancelTask(orderId) {
+	const requestOptions = {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ orderId }),
+	};
+
+	return fetch(`${BASE_URL}/tasks/cancel`, requestOptions).then((task) => {
+		return task;
 	});
 }
 
