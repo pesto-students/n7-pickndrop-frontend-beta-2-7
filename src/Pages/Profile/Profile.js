@@ -8,10 +8,10 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Header from "../../components/Header/Header";
 import Modal from "@material-ui/core/Modal";
 import Footer from "../../components/Footer/Footer";
+import StripeModal from "../../components/StripeModal/StripeModal";
 import { useStyles } from "./profileStyle";
-import { getTasks } from "../../services/taskService";
+import { getTasks, paymentTask } from "../../services/taskService";
 import { Alert } from "@mui/material";
-
 const Profile = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -59,6 +59,7 @@ const Profile = () => {
                 description,
                 title,
                 price,
+                paymentMethod,
                 isActive,
                 isDelieverd,
                 isCancelled,
