@@ -9,8 +9,9 @@ import Header from "../../components/Header/Header";
 import Modal from "@material-ui/core/Modal";
 import Footer from "../../components/Footer/Footer";
 import { useStyles } from "./profileStyle";
-import { getTasks, paymentTask } from "../../services/taskService";
-import StripeModal from "../../components/StripeModal/StripeModal.js";
+import { getTasks } from "../../services/taskService";
+import { Alert } from "@mui/material";
+
 const Profile = () => {
   const classes = useStyles();
   const [data, setData] = useState([]);
@@ -45,7 +46,7 @@ const Profile = () => {
               "Support",
               "About",
             ].map((text, index) => (
-              <ListItem key={index} button selected={index === 0}>
+              <ListItem key={index} button>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
@@ -56,9 +57,12 @@ const Profile = () => {
                 sender,
                 receiver,
                 description,
-                paymentMethod,
                 title,
                 price,
+                isActive,
+                isDelieverd,
+                isCancelled,
+                isPickedUp,
               } = item;
               const { address: senderPlace } = sender;
               const { address: receiverPlace } = receiver;
@@ -90,6 +94,44 @@ const Profile = () => {
                   </div>
                   <div className={classes.ordersListDescription}>
                     <span>{description}</span>
+                  </div>
+                  <div>
+                    {isActive ? (
+                      <>
+                        {isPickedUp ? (
+                          <>
+                            {isDelieverd ? (
+                              <Alert severity="success">
+                                Your order has been delivered successfully.
+                              </Alert>
+                            ) : (
+                              <Alert severity="info">
+                                Your order has been picked up and delivery
+                                partner is on the way to deliver your order.
+                              </Alert>
+                            )}
+                          </>
+                        ) : (
+                          <Alert severity="info">
+                            Your order has been accepeted and delivery partner
+                            is on the way to pick up your order.
+                          </Alert>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {isCancelled ? (
+                          <Alert severity="error">
+                            This order has been cancelled.
+                          </Alert>
+                        ) : (
+                          <Alert severity="warning">
+                            Please wait, we're assigning your order to nearby
+                            delivery partner.
+                          </Alert>
+                        )}
+                      </>
+                    )}
                   </div>
                 </div>
               );

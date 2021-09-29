@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
-import { authentication, driverAuthentication, userOtpAuthentication, driverOtpAuthentication } from './userReducer';
+import { authentication, driverAuthentication, userOtpAuthentication, driverOtpAuthentication, register, task } from './userReducer';
 
 const rootReducer = combineReducers({
     authentication,
     driverAuthentication,
     userOtpAuthentication,
-    driverOtpAuthentication
+    driverOtpAuthentication,
+    register,
+    task,
+
+
 });
 
 export default rootReducer;

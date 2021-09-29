@@ -61,7 +61,7 @@ function UserHomepage() {
   const [receiver, setReceiver] = useState();
   const [values, setValues] = useState({
     title: "",
-    dssescription: "",
+    description: "",
     senderPhoneNo: "",
     receiverPhoneNo: "",
     senderName: "",
@@ -134,6 +134,10 @@ function UserHomepage() {
       },
       title: values.title,
       description: values.description,
+      isActive: false,
+      isCancelled: false,
+      isPickedUp: false,
+      isDelieverd: false,
     };
     try {
       await createTask(obj);
@@ -172,7 +176,6 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Sender's Address",
-                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && receiver) {
@@ -184,7 +187,6 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Receiver's Address",
-                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && sender) {
@@ -208,8 +210,6 @@ function UserHomepage() {
                     fullWidth
                     error={errors.title}
                     value={values.title}
-                    margin="normal"
-                    variant="outlined"
                     name="title"
                     onChange={handleChange}
                     placeholder="Title of Material to be sent"
@@ -219,16 +219,12 @@ function UserHomepage() {
                     error={errors.description}
                     value={values.description}
                     name="description"
-                    margin="normal"
-                    variant="outlined"
                     onChange={handleChange}
                     placeholder="Description of Material to be sent"
                   />
                   <Input
                     fullWidth
                     error={errors.senderName}
-                    margin="normal"
-                    variant="outlined"
                     value={values.senderName}
                     name="senderName"
                     onChange={handleChange}
@@ -241,8 +237,6 @@ function UserHomepage() {
                     value={values.senderPhoneNo}
                     name="senderPhoneNo"
                     onChange={handleChange}
-                    margin="normal"
-                    variant="outlined"
                     type="number"
                     placeholder="Sender's Phone Number"
                   />
@@ -251,8 +245,6 @@ function UserHomepage() {
                     error={errors.receiverName}
                     value={values.receiverName}
                     name="receiverName"
-                    margin="normal"
-                    variant="outlined"
                     onChange={handleChange}
                     type="text"
                     placeholder="Receiver Name"
@@ -264,8 +256,6 @@ function UserHomepage() {
                     name="receiverPhoneNo"
                     onChange={handleChange}
                     type="number"
-                    margin="normal"
-                    variant="outlined"
                     placeholder="Receiver's Phone Number"
                   />
                   <Button
