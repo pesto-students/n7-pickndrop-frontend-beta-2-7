@@ -24,7 +24,6 @@ const mainFeaturedPost = {
   image: "https://source.unsplash.com/random",
   imgText: "main image description",
 };
-
 const featured = [
   {
     title: "User Feedback",
@@ -176,6 +175,7 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Sender's Address",
+                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && receiver) {
@@ -187,6 +187,7 @@ function UserHomepage() {
                 <AutoComplete
                   inputProps={{
                     placeholder: "Receiver's Address",
+                    className: classes.input,
                   }}
                   onSelect={(data) => {
                     if (data && sender) {
@@ -196,7 +197,11 @@ function UserHomepage() {
                   }}
                 />
               </div>
-              <Modal open={current === "add"}>
+              <Modal
+                open={current === "add"}
+                scrollable
+                toggle={() => setCurrent("")}
+              >
                 <Box sx={style}>
                   <Typography
                     style={{ textAlign: "center" }}
@@ -206,11 +211,14 @@ function UserHomepage() {
                   >
                     Enter Additional Information
                   </Typography>
+
                   <Input
                     fullWidth
                     error={errors.title}
                     value={values.title}
                     name="title"
+                    variant="outlined"
+                    className={classes.modalInput}
                     onChange={handleChange}
                     placeholder="Title of Material to be sent"
                   />
@@ -219,6 +227,8 @@ function UserHomepage() {
                     error={errors.description}
                     value={values.description}
                     name="description"
+                    className={classes.modalInput}
+                    variant="outlined"
                     onChange={handleChange}
                     placeholder="Description of Material to be sent"
                   />
@@ -227,6 +237,8 @@ function UserHomepage() {
                     error={errors.senderName}
                     value={values.senderName}
                     name="senderName"
+                    className={classes.modalInput}
+                    variant="outlined"
                     onChange={handleChange}
                     type="text"
                     placeholder="Sender's Name"
@@ -236,6 +248,8 @@ function UserHomepage() {
                     error={errors.senderPhoneNo}
                     value={values.senderPhoneNo}
                     name="senderPhoneNo"
+                    className={classes.modalInput}
+                    variant="outlined"
                     onChange={handleChange}
                     type="number"
                     placeholder="Sender's Phone Number"
@@ -245,6 +259,8 @@ function UserHomepage() {
                     error={errors.receiverName}
                     value={values.receiverName}
                     name="receiverName"
+                    className={classes.modalInput}
+                    variant="outlined"
                     onChange={handleChange}
                     type="text"
                     placeholder="Receiver Name"
@@ -254,6 +270,8 @@ function UserHomepage() {
                     error={errors.receiverPhoneNo}
                     value={values.receiverPhoneNo}
                     name="receiverPhoneNo"
+                    className={classes.modalInput}
+                    variant="outlined"
                     onChange={handleChange}
                     type="number"
                     placeholder="Receiver's Phone Number"
