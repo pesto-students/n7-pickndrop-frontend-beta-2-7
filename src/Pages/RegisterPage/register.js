@@ -60,11 +60,24 @@ function Register() {
 	}
 
 	function handleFileUpload(e) {
-		const data = new FormData();
-		data.append("file", e.target.files[0]);
-		fetch(`${BASE_URL}/upload`, data).then((res) => {
-			setFile(res.data);
-		});
+		e.preventDefault();
+        const formData = new FormData();
+        formData.append('myImage', file);
+        const config = {
+			method: "POST",
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        fetch(`${BASE_URL}/upload`,formData,config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+        });
+	}
+
+	function handleFileChange(e) {
+		setFile(e.target.files[0])
 	}
 
 	const dispatch = useDispatch();
@@ -249,15 +262,16 @@ function Register() {
 									id="contained-button-file"
 									name="file"
 									type="file"
-									onChange={handleFileUpload}
+									onChange={handleFileChange}
 								/>
 								<label className={classes.photoLabel} htmlFor="contained-button-file">
 									<Button variant="contained" color="primary" component="span">
 										<PhotoCamera className={classes.photo} />
-										Upload Image
+										Select Image
 									</Button>
 								</label>
-								<img src={file} alt="upload-image" width="200" height="200" />
+								<Button onClick={handleFileUpload} variant="contained" color="primary">Upload</Button>
+								<img alt="pic" src={file} width="200" height="200" />
 							</AccordionDetails>
 						</Accordion>
 						<Accordion>

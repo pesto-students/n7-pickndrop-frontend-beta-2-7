@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { useStyles } from "./userHomePageStyle";
 import { createTask } from "../../../services/taskService";
 import { useHistory } from "react-router-dom";
+
 const mainFeaturedPost = {
 	title: "Welcome to PickNDrop",
 	description: "The one stop online solution to deliver your package within a city without any hussle and fair price.",

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 const mapboxApiAccessToken = "pk.eyJ1IjoiY2hpcmFuamlibmFuZHkiLCJhIjoiY2t0d3djbHA1MmIyOTJ2bnF3Z2dnMjFkdiJ9.LEo8M2aRkhZXJ7mDROxB8w";
 
-const Map = ({ markers }) => {
+const Map = ({ markers, zoom }) => {
 	const getZoom = () => {
 		if (markers.length === 2) {
 			const latDistance = Math.abs(markers[0].lat - markers[1].lat);
@@ -33,7 +33,7 @@ const Map = ({ markers }) => {
 		height: "100%",
 		latitude: lat,
 		longitude: lng,
-		zoom: getZoom(),
+		zoom: zoom ? zoom : getZoom(),
 	});
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ const Map = ({ markers }) => {
 			...viewport,
 			latitude: lat,
 			longitude: lng,
-			zoom: getZoom(),
+			zoom: zoom ? zoom : getZoom(),
 		});
 	}, [markers]);
 
