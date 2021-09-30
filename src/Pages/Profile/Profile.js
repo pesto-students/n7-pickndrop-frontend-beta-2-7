@@ -77,7 +77,9 @@ const Profile = () => {
                           setCurrent(index);
                         }
                       }}
-                      className={classes.priceText}
+                      className={
+                        paymentMethod ? classes.priceText : classes.priceButton
+                      }
                     >
                       {paymentMethod ? "Paid: Rs." : "Pay Now Rs."}
                       {price}
