@@ -144,7 +144,8 @@ const Profile = () => {
             onSubmit={async (paymentMethod) => {
               try {
                 await paymentTask(data[current]._id, paymentMethod);
-                await getTasks();
+                const { data: newData } = await getTasks();
+                setData(newData);
                 setCurrent(-1);
               } catch (e) {
                 console.log(e);
