@@ -99,42 +99,44 @@ const Profile = () => {
                     <span>{description}</span>
                   </div>
                   <div>
-                    {isActive ? (
-                      <>
-                        {isPickedUp ? (
-                          <>
-                            {isDelieverd ? (
-                              <Alert severity="success">
-                                Your order has been delivered successfully.
-                              </Alert>
-                            ) : (
-                              <Alert severity="info">
-                                Your order has been picked up and delivery
-                                partner is on the way to deliver your order.
-                              </Alert>
-                            )}
-                          </>
-                        ) : (
-                          <Alert severity="info">
-                            Your order has been accepeted and delivery partner
-                            is on the way to pick up your order.
-                          </Alert>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {isCancelled ? (
-                          <Alert severity="error">
-                            This order has been cancelled.
-                          </Alert>
-                        ) : (
-                          <Alert severity="warning">
-                            Please wait, we're assigning your order to nearby
-                            delivery partner.
-                          </Alert>
-                        )}
-                      </>
-                    )}
+                    {paymentMethod ? (
+                      isActive ? (
+                        <>
+                          {isPickedUp ? (
+                            <>
+                              {isDelieverd ? (
+                                <Alert severity="success">
+                                  Your order has been delivered successfully.
+                                </Alert>
+                              ) : (
+                                <Alert severity="info">
+                                  Your order has been picked up and delivery
+                                  partner is on the way to deliver your order.
+                                </Alert>
+                              )}
+                            </>
+                          ) : (
+                            <Alert severity="info">
+                              Your order has been accepeted and delivery partner
+                              is on the way to pick up your order.
+                            </Alert>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {isCancelled ? (
+                            <Alert severity="error">
+                              This order has been cancelled.
+                            </Alert>
+                          ) : (
+                            <Alert severity="warning">
+                              Please wait, we're assigning your order to nearby
+                              delivery partner.
+                            </Alert>
+                          )}
+                        </>
+                      )
+                    ) : null}
                   </div>
                 </div>
               );
