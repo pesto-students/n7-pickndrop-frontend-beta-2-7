@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: window.innerWidth,
+    width: 0.8 * window.innerWidth,
     height: window.innerHeight,
     position: "relative",
   },
@@ -23,6 +23,10 @@ export const useStyles = makeStyles((theme) => ({
     lineHeight: 2,
     border: "2px solid black",
     width: window.innerWidth * 0.3,
+  },
+  modalInput: {
+    lineHeight: 2,
+    padding: 10,
   },
   button: {
     margin: "20px 0",
