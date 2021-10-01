@@ -41,7 +41,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/taskAssigned" component={TaskAssigned} />
         {loggedIn && <Route path="/profile" component={Profile} />}
-        <Route path="*" render={() => <Redirect to="/" />} />
+        {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
       </div>
     </Elements>
   );
