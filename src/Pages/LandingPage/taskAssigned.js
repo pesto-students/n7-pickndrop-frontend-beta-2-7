@@ -104,6 +104,15 @@ function TaskAssigned() {
 								latitude: receiverLat,
 								longitude: receiverLng,
 							} = receiver;
+							const getZoom = () => {
+								if (senderLat && senderLng && receiverLat && receiverLng) {
+									const latDistance = Math.floor(senderLat - receiverLat);
+									const lngDistance = Math.floor(senderLng - receiverLng);
+									const distance = Math.sqrt(latDistance * latDistance + lngDistance * lngDistance);
+									return Math.floor(distance * 7.5);
+								}
+								return 8;
+							};
 							return (
 								<Box key={index} sx={{ bgcolor: "#eee", height: "auto", marginBottom: "40px", padding: "20px" }}>
 									<Grid container spacing={2}>
@@ -114,6 +123,7 @@ function TaskAssigned() {
 														{ lat: senderLat, lng: senderLng, address: senderPlace },
 														{ lat: receiverLat, lng: receiverLng, address: receiverPlace },
 													].filter((item) => !!item)}
+													zoom={getZoom()}
 												/>
 											</div>
 										</Grid>

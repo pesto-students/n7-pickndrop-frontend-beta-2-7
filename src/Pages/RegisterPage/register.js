@@ -308,12 +308,17 @@ function Register() {
                 >
                   <Button variant="contained" color="primary" component="span">
                     <PhotoCamera className={classes.photo} />
-                    Upload Image
+                    Select Image
                   </Button>
                 </label>
-                {file && (
-                  <img src={file} alt="upload-image" width="200" height="200" />
-                )}
+                <Button
+                  onClick={handleFileUpload}
+                  variant="contained"
+                  color="primary"
+                >
+                  Upload
+                </Button>
+                <img alt="pic" src={file} width="200" height="200" />
               </AccordionDetails>
             </Accordion>
             <Accordion>

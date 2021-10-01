@@ -3,18 +3,16 @@ import ReactMapGL, { Marker } from "react-map-gl";
 const mapboxApiAccessToken =
   "pk.eyJ1IjoiY2hpcmFuamlibmFuZHkiLCJhIjoiY2t0d3djbHA1MmIyOTJ2bnF3Z2dnMjFkdiJ9.LEo8M2aRkhZXJ7mDROxB8w";
 
-const Map = ({ markers }) => {
-  const getZoom = () => {
-    if (markers.length === 2) {
-      const latDistance = Math.abs(markers[0].lat - markers[1].lat);
-      const lngDistance = Math.abs(markers[0].lng - markers[1].lng);
-      const distance = Math.sqrt(
-        latDistance * latDistance + lngDistance * lngDistance
-      );
-      return Math.floor(distance * 4);
-    }
-    return 8;
-  };
+const Map = ({ markers, zoom }) => {
+	const getZoom = () => {
+		if (markers.length === 2) {
+			const latDistance = Math.abs(markers[0].lat - markers[1].lat);
+			const lngDistance = Math.abs(markers[0].lng - markers[1].lng);
+			const distance = Math.sqrt(latDistance * latDistance + lngDistance * lngDistance);
+			return Math.floor(distance * 4);
+		}
+		return 8;
+	};
 
   const getCenter = () => {
     if (markers.length === 2) {
@@ -31,23 +29,23 @@ const Map = ({ markers }) => {
 
   const { lat, lng } = getCenter();
 
-  const [viewport, setViewport] = useState({
-    width: "100%",
-    height: "100%",
-    latitude: lat,
-    longitude: lng,
-    zoom: getZoom(),
-  });
+	const [viewport, setViewport] = useState({
+		width: "100%",
+		height: "100%",
+		latitude: lat,
+		longitude: lng,
+		zoom: zoom ? zoom : getZoom(),
+	});
 
-  useEffect(() => {
-    const { lat, lng } = getCenter();
-    setViewport({
-      ...viewport,
-      latitude: lat,
-      longitude: lng,
-      zoom: getZoom(),
-    });
-  }, [markers]);
+	useEffect(() => {
+		const { lat, lng } = getCenter();
+		setViewport({
+			...viewport,
+			latitude: lat,
+			longitude: lng,
+			zoom: zoom ? zoom : getZoom(),
+		});
+	}, [markers]);
 
   if (markers.length === 0) {
     return (
