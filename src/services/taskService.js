@@ -9,13 +9,16 @@ export const createTask = async (body) => {
   const res = await fetch(`${BASE_URL}/tasks/create`, requestOptions);
   return await res.json();
 };
-export const getTasks = async () => {
+export const getTasks = async (driverId) => {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   };
 
-  const res = await fetch(`${BASE_URL}/tasks`, requestOptions);
+  const res = await fetch(
+    `${BASE_URL}/tasks/${driverId || ""}`,
+    requestOptions
+  );
   return await res.json();
 };
 export const paymentTask = async (id, paymentMethod) => {
