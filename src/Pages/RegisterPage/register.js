@@ -318,7 +318,7 @@ function Register() {
                 >
                   Upload
                 </Button>
-                <img alt="pic" src={file} width="200" height="200" />
+                {file && <img alt="pic" src={file} width="200" height="200" />}
               </AccordionDetails>
             </Accordion>
             <Accordion>
@@ -342,6 +342,7 @@ function Register() {
                   id="emergencyContact"
                   label="Emegency Contact"
                   variant="outlined"
+                  type="number"
                   helperText={
                     submitted && !emergencyContact
                       ? "Emergency Conatact is required"
