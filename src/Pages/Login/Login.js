@@ -49,7 +49,7 @@ function Login() {
 
 		if (otp && email && phone) {
 			dispatch(userActions.userOtpVerification(otp, email, phone));
-			history.push('/')
+			history.push('/homepage')
 		}
 	}
 

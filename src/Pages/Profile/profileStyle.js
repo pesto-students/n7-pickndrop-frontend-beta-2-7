@@ -19,17 +19,21 @@ export const useStyles = makeStyles((theme) => ({
     color: "black",
   },
   priceText: {
-    color: "green",
-    backgroundColor: "#e5e5e5",
+    color: "white",
+    padding: '5px 10px',
+    marginBottom: '10px',
+    borderRadius: 10,
+    backgroundColor: "#663535",
   },
   priceButton: {
     color: "white",
-    backgroundColor: "blue",
+    backgroundColor: "#406c52",
     borderRadius: 20,
-    padding: 5,
+    padding: '5px 10px',
     boxShadow:
       "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
     cursor: "pointer",
+    marginBottom: '10px',
   },
   ordersListAddressContainer: {
     display: "flex",
