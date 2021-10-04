@@ -21,11 +21,13 @@ async function login(email, phone) {
     body: JSON.stringify({ email, phone }),
   };
 
-  return fetch(`${BASE_URL}/users/authenticate`, requestOptions).then(
-    (user) => {
-      return user;
-    }
-  );
+  const res = await fetch(
+    `${BASE_URL}/users/authenticate`,
+    requestOptions
+  ).then((user) => {
+    return user;
+  });
+  return await res.json();
 }
 
 async function driverLogin(email, phone) {
@@ -35,11 +37,8 @@ async function driverLogin(email, phone) {
     body: JSON.stringify({ email, phone }),
   };
 
-  return fetch(`${BASE_URL}/driver/authenticate`, requestOptions).then(
-    (driver) => {
-      return driver;
-    }
-  );
+  const res = await fetch(`${BASE_URL}/driver/authenticate`, requestOptions);
+  return await res.json();
 }
 
 async function userOtpVerification(otp, email, phone) {
@@ -98,7 +97,9 @@ async function register(
   vehicleDetails,
   panCard,
   aadharCard,
-  drivingLicense
+  drivingLicense,
+  avatar,
+  userId
 ) {
   const requestOptions = {
     method: "POST",
@@ -118,6 +119,8 @@ async function register(
       panCard,
       aadharCard,
       drivingLicense,
+      avatar,
+      userId,
     }),
   };
 
