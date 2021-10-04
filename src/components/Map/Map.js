@@ -6,10 +6,11 @@ const mapboxApiAccessToken =
 const Map = ({ markers, zoom }) => {
 	const getZoom = () => {
 		if (markers.length === 2) {
-			const latDistance = Math.abs(markers[0].lat - markers[1].lat);
-			const lngDistance = Math.abs(markers[0].lng - markers[1].lng);
+			const latDistance = Math.floor(markers[0].lat - markers[1].lat);
+			const lngDistance = Math.floor(markers[0].lng - markers[1].lng);
 			const distance = Math.sqrt(latDistance * latDistance + lngDistance * lngDistance);
-			return Math.floor(distance * 4);
+			console.log(distance)
+			return Math.floor(distance * 9.8);
 		}
 		return 8;
 	};
