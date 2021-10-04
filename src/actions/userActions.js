@@ -1,3 +1,4 @@
+import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
 import { userConstants } from "../constants/userConstants";
 import { userService } from "../services/userService";
 
@@ -120,10 +121,13 @@ function register(
   date,
   emergencyContact,
   workExperience,
+  preferredLocation,
   vehicleDetails,
   panCard,
   aadharCard,
-  drivingLicense
+  drivingLicense,
+  avatar,
+  userId
 ) {
   return (dispatch) => {
     userService
@@ -137,10 +141,13 @@ function register(
         date,
         emergencyContact,
         workExperience,
+        preferredLocation,
         vehicleDetails,
         panCard,
         aadharCard,
-        drivingLicense
+        drivingLicense,
+        avatar,
+        userId
       )
       .then(
         (driverDetails) => {

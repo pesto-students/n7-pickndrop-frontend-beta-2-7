@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../actions";
 import { useStyles } from "./style";
 import { useHistory } from "react-router-dom";
+import partner from "../../../assets/become_partner.jpeg";
 
 function DeliveryPartnerHomepage() {
 	const classes = useStyles();
@@ -60,7 +61,9 @@ function DeliveryPartnerHomepage() {
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
-			<Grid item xs={false} sm={4} md={7} className={classes.image} />
+			<Grid item xs={false} sm={4} md={7} style={{ backgroundImage: `url(${partner})` }} className={classes.image}>
+
+			</Grid>
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
 					<Avatar className={classes.avatar}></Avatar>

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 
 import { Elements } from "@stripe/react-stripe-js";
+import { Homepage } from "./Pages/Homepage/Default/homepage";
 
 const publicKey =
   "pk_test_51JddslSAjlEV7TUa9n6qlp5fNdcHx3Lj8MS7sSM7bLIkTlkZYXzgmu0zhXZ93OJ6GIt0skAkxfgFbUMIcJnVJqW100TQ7L9y5f";
@@ -38,10 +39,13 @@ function App() {
           path="/deliveryPartnerHomepage"
           component={DeliveryPartnerHomepage}
         />
-        <Route path="/register" component={Register} />
-        <Route path="/taskAssigned" component={TaskAssigned} />
+        {driverLoggedIn && <Route path="/register" component={Register} />}
+        {driverLoggedIn && (
+          <Route path="/taskAssigned" component={TaskAssigned} />
+        )}
+        {loggedIn && <Route path="/homepage" component={Homepage} />}
         {loggedIn && <Route path="/profile" component={Profile} />}
-        {/* <Route path="*" render={() => <Redirect to="/" />} /> */}
+        {/* {<Route path="*" render={() => <Redirect to="/" />} />} */}
       </div>
     </Elements>
   );

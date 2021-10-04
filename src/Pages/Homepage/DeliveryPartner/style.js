@@ -19,7 +19,6 @@ export const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
     },
 	image: {
-		backgroundImage: "url(https://source.unsplash.com/random)",
 		backgroundRepeat: "no-repeat",
 		backgroundColor: theme.palette.type === "light" ? theme.palette.grey[50] : theme.palette.grey[900],
 		backgroundSize: "cover",

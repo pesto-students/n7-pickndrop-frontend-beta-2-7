@@ -16,12 +16,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import { PhotoCamera } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../actions";
 import { BASE_URL } from "../../services/apiurl";
 
 function Register() {
   const classes = useStyles();
+  const userId = useSelector((state) => state.driverAuthentication.driver._id);
 
   const [submitted, setSubmitted] = useState(false);
   const [submitWithDetails, setSubmitWithDetails] = useState(false);
@@ -101,7 +102,8 @@ function Register() {
       vehicleDetails &&
       panCard &&
       aadharCard &&
-      drivingLicense
+      drivingLicense &&
+      file
     ) {
       dispatch(
         userActions.register(
@@ -118,7 +120,9 @@ function Register() {
           vehicleDetails,
           panCard,
           aadharCard,
-          drivingLicense
+          drivingLicense,
+          file,
+          userId
         )
       );
       setSubmitWithDetails(true);
