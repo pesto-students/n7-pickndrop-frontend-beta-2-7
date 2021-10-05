@@ -5,9 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     minWidth: "60%",
   },
   ordersListContainer: {
-    margin: 15,
+    margin: '8px 15px',
     padding: 15,
-    border: "1px solid black",
+    background: '#f7f1ec',
+    borderRadius: '15px',
   },
   ordersListHeader: {
     display: "flex",

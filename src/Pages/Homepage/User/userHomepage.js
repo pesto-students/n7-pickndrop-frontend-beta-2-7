@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Input from "@material-ui/core/TextField";
@@ -18,7 +18,7 @@ import { createTask } from "../../../services/taskService";
 import { useHistory } from "react-router-dom";
 import banner from "../../../assets/banner.png";
 import feedback from "../../../assets/feedback.png";
-import { Button, Stack } from "@mui/material";
+import { Button, Collapse, Stack } from "@mui/material";
 
 const mainFeaturedPost = {
 	title: "PickNDrop",
@@ -42,18 +42,6 @@ const featured = [
 		imageText: "Image Text",
 	},
 ];
-
-const style = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 800,
-	bgcolor: "background.paper",
-	border: "2px solid #000",
-	boxShadow: 24,
-	p: 4,
-};
 
 function UserHomepage() {
 	const history = useHistory();
@@ -162,6 +150,16 @@ function UserHomepage() {
 			console.log(e);
 		}
 	};
+
+	const scrollBottom = () => {
+		console.log(document.body.scrollHeight);
+		window.scroll({
+			top: document.body.scrollHeight * 5,
+			left: 0,
+			behavior: "smooth",
+		});
+	};
+
 	return (
 		<React.Fragment>
 			<CssBaseline />
@@ -170,7 +168,7 @@ function UserHomepage() {
 				<main>
 					{loggingIn ? (
 						<div className={classes.mapContainer}>
-							<Grid container>
+							<Grid container style={{ position: "relative", height: "500px" }}>
 								<Container style={{ margin: "0px auto 10px" }} maxWidth="sm">
 									<Typography variant="h5" align="center" color="text.secondary" paragraph>
 										Select sender's and receiver's address.
@@ -201,12 +199,13 @@ function UserHomepage() {
 											setCurrent("add");
 										}
 										setReceiver(data);
+										scrollBottom();
 									}}
 								/>
 							</div>
-							<Modal open={current === "add"} scrollable toggle={() => setCurrent("")}>
-								<Box sx={style}>
-									<Typography style={{ textAlign: "center" }} fullWidth variant="h6" component="h2">
+							<Collapse in={current === "add"}>
+								<Grid container spacing={2}>
+									<Typography style={{ textAlign: "center", margin: "100px 10px 20px" }} fullWidth variant="h6" component="h2">
 										Enter Additional Information
 									</Typography>
 									<Grid container spacing={2}>
@@ -287,8 +286,8 @@ function UserHomepage() {
 											/>
 										</Grid>
 									</Grid>
-									<Grid container spacing={4}>
-										<Grid item xs={12} md={3}>
+									<Grid container style={{ padding: "10px" }} spacing={2}>
+										<Grid item xs={12} md={2}>
 											<Button
 												style={{
 													background: "#3f51b5",
@@ -302,7 +301,7 @@ function UserHomepage() {
 												Add Task
 											</Button>
 										</Grid>
-										<Grid item xs={12} md={3}>
+										<Grid item xs={12} md={2}>
 											<Button
 												style={{
 													background: "#d65a50",
@@ -319,8 +318,8 @@ function UserHomepage() {
 											</Button>
 										</Grid>
 									</Grid>
-								</Box>
-							</Modal>
+								</Grid>
+							</Collapse>
 						</div>
 					) : (
 						<>

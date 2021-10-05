@@ -113,6 +113,12 @@ export function driverOtpAuthentication(state = driverOtpInitialState, action) {
         otp: action.otp,
         driver: action.driver,
       };
+    case userConstants.REGISTER_SUCCESS: {
+      return {
+        ...state,
+        ...action,
+      };
+    }
     case userConstants.DRIVER_OTP_VERIFICATION_FAILURE:
       return {
         ...state,

@@ -6,7 +6,6 @@ export const userService = {
   driverLogin,
   userOtpVerification,
   driverOtpVerification,
-  driverRegistrationCheck,
   acceptTask,
   pickedTask,
   deliveredTask,
@@ -48,11 +47,10 @@ async function userOtpVerification(otp, email, phone) {
     body: JSON.stringify({ otp, email, phone }),
   };
 
-  return fetch(`${BASE_URL}/user/otp/authenticate`, requestOptions).then(
-    (user) => {
-      return user;
-    }
-  );
+  const res = await fetch(`${BASE_URL}/user/otp/authenticate`, requestOptions);
+  const { token, ...rest } = await res.json();
+  window.localStorage.setItem("token", token);
+  return rest;
 }
 
 async function driverOtpVerification(otp, email, phone) {
@@ -62,25 +60,16 @@ async function driverOtpVerification(otp, email, phone) {
     body: JSON.stringify({ otp, email, phone }),
   };
 
-  return fetch(`${BASE_URL}/driver/otp/authenticate`, requestOptions).then(
-    (driver) => {
-      return driver;
-    }
+  const res = await fetch(
+    `${BASE_URL}/driver/otp/authenticate`,
+    requestOptions
   );
-}
-
-async function driverRegistrationCheck(email, phone) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, phone }),
+  const { token, ...rest } = await res.json();
+  window.localStorage.setItem("token", token);
+  return {
+    token,
+    ...rest,
   };
-
-  return fetch(`${BASE_URL}/driver/checkRegistration`, requestOptions).then(
-    (driver) => {
-      return driver;
-    }
-  );
 }
 
 async function register(
@@ -103,7 +92,10 @@ async function register(
 ) {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("token"),
+    },
     body: JSON.stringify({
       firstName,
       lastName,

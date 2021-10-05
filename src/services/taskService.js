@@ -12,7 +12,10 @@ export const createTask = async (body) => {
 export const getTasks = async (driverId) => {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: window.localStorage.getItem("token"),
+    },
   };
 
   const res = await fetch(
