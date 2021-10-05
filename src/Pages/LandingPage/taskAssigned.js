@@ -22,7 +22,6 @@ import SendIcon from "@mui/icons-material/Send";
 
 function TaskAssigned() {
   const [items, setItems] = useState([]);
-  const driverId = useSelector((state) => state.register._id);
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
 
@@ -56,7 +55,7 @@ function TaskAssigned() {
 
   const fetchOrderList = async () => {
     try {
-      const { data } = await getTasks(driverId);
+      const { data } = await getTasks();
       setItems(data);
       setHasMore(false);
     } catch (e) {
@@ -68,7 +67,7 @@ function TaskAssigned() {
 
   useEffect(() => {
     fetchOrderList();
-  }, [driverId]);
+  }, []);
 
   return (
     <React.Fragment>
