@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     width: '100%',
-    height: '500px',
+    height: 'auto',
     position: "relative",
 	marginBottom: '50px',
   },
