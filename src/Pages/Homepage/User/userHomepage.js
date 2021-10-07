@@ -289,13 +289,13 @@ function UserHomepage() {
 									<Grid container style={{ padding: "10px" }} spacing={2}>
 										<Grid item xs={12} md={2}>
 											<Button
+												disabled={!values.receiverPhoneNo}
 												style={{
-													background: "#3f51b5",
-													color: "white",
 													margin: "10px 0",
 												}}
+												variant="contained"
+												color="primary"
 												onClick={addTask}
-												type="primary"
 												fullWidth
 											>
 												Add Task
