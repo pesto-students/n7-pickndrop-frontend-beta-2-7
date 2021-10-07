@@ -53,4 +53,12 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     margin: 5,
   },
+  about: {
+    maxWidth: '700px',
+    margin: '20px',
+    "& p": {
+			margin: "20px 0",
+      textAlign: 'left'
+		},
+  }
 }));
