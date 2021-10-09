@@ -28,7 +28,7 @@ function DeliveryPartnerHomepage() {
   );
   const error = useSelector((state) => state.driverOtpAuthentication.error);
   const alreadyRegistered = useSelector(
-    (state) => state.driverAuthentication.preferredLocation
+    (state) => state.driverAuthentication.driver.preferredLocation
   );
   const dispatch = useDispatch();
   const history = useHistory();
