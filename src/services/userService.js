@@ -20,12 +20,7 @@ async function login(email, phone) {
     body: JSON.stringify({ email, phone }),
   };
 
-  const res = await fetch(
-    `${BASE_URL}/users/authenticate`,
-    requestOptions
-  ).then((user) => {
-    return user;
-  });
+  const res = await fetch(`${BASE_URL}/users/authenticate`, requestOptions);
   return await res.json();
 }
 
