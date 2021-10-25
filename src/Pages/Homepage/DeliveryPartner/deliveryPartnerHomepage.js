@@ -12,12 +12,14 @@ import { userActions } from "../../../actions";
 import { useStyles } from "./style";
 import { useHistory } from "react-router-dom";
 import partner from "../../../assets/become_partner.jpeg";
-
+const guestEmail = "guest@gmail.com";
+const guestPhoneNo = "1234567890";
+const guestOtp = "123456";
 function DeliveryPartnerHomepage() {
   const classes = useStyles();
   const [inputs, setInputs] = useState({
-    email: "",
-    phone: "",
+    email: guestEmail,
+    phone: guestPhoneNo,
   });
   const [driverOtp, setOTP] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -46,6 +48,14 @@ function DeliveryPartnerHomepage() {
     setSubmitted(true);
     if (email && phone) {
       dispatch(userActions.deliveryPartnerLogin(email, phone));
+      if (email === guestEmail && phone === guestPhoneNo) {
+        dispatch(userActions.driverOtpVerification(guestOtp, email, phone));
+        if (!alreadyRegistered && loggedIn)
+          setTimeout(history.push("/register"), 1000);
+        if (alreadyRegistered && loggedIn)
+          setTimeout(history.push("/taskAssigned"), 1000);
+        return;
+      }
       setSubmitWithDetails(true);
     }
   }
@@ -130,6 +140,7 @@ function DeliveryPartnerHomepage() {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
                 autoComplete="email"
                 helperText={submitted && !email ? "Email is required" : ""}
                 autoFocus
@@ -147,6 +158,8 @@ function DeliveryPartnerHomepage() {
                 helperText={
                   submitted && !phone ? "Phone number is required" : ""
                 }
+                InputLabelProps={{ shrink: true }}
+                value={phone}
                 id="phone"
                 autoComplete="current-phone"
               />
